@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="components/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="components/layui/css/layui.css">
+    <script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="components/jquery/jquery.ajax.js"></script>
+    <script type="text/javascript" src="components/layui/layui.js"></script>
+    <style type="text/css">
+        .material_area_tr {
+            height: 90%;
+        }
+
+        .service_name_div {
+            float: left;
+        }
+
+        label {
+            font-weight: normal;
+        }
+
+        .not_exists_data {
+            text-align: center;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        .unified_material_name_div {
+            float: left;
+        }
+
+        .unified_material_btn {
+            float: right;
+        }
+
+        .th_fixed {
+            position: fixed;
+            z-index: 999;
+            top: 0px;
+            height: 53px
+        }
+
+        .float_right {
+            float: right;
+        }
+
+        .panel-heading {
+            cursor: pointer;
+            background-color: #009688 !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+
+<body style="height:100%;">
+
+<div style="height:100%;">
+    <div style="height:100%;">
+        <table id="autoTable" style="height:100%;" class="table table-bordered">
+            <tbody>
+            <tr height="51px">
+                <th style="text-align: center;line-height: 36px;" width="45%" class="th_fixed">
+                    原材料
+                </th>
+                <td style="text-align: center;border-bottom:0px solid #FFF" width="10%"></td>
+                <th style="text-align: center;line-height: 36px;" width="45%" class="th_fixed float_right">统一后材料</th>
+            </tr>
+
+            <tr class="material_area_tr">
+                <td style="vertical-align:top;text-align:left;" width="45%">
+                    <div id="materail_div" style="display: block;">
+                        <div>
+                            <!-- 事项 -->
+                            <div id="service_panel" class="panel panel-default">
+                                <div class="panel-heading" onclick="showOrhideMaterial(this)"
+                                     style="overflow: auto; display: block;">
+                                    <div class="service_name_div">
+                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                        <span title="户口登记,注销,迁移">户口登记,注销,迁移</span>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body">
+                                    <input type="hidden" class="info_serviceUnid"
+                                           value="276c0e871a8e4b80a8364fed5b2c2248">
+                                    <input type="hidden" class="info_serviceName" value="户口登记,注销,迁移">
+                                    <input type="hidden" class="info_deptUnid" value="321311GA">
+                                    <input type="hidden" class="info_deptName" value="公安局宿豫分局">
+
+                                    <div class="materialList">
+                                        <div><label><input class="material_checkbox" type="checkbox" importlevel="1"
+                                                           value="1b8c0591-9b1a-4d09-9074-192d624f2ee8"
+                                                           name="material_checkbox276c0e871a8e4b80a8364fed5b2c2248"><input
+                                                type="hidden" class="info_materialName"
+                                                value="户口簿"> <span title="户口簿">户口簿</span></label></div>
+                                        <div><label><input class="material_checkbox mapped" style="display:none;"
+                                                           type="checkbox" importlevel="1"
+                                                           value="77cd2a42-9668-45d8-b1b2-0f57c784da39"
+                                                           name="material_checkbox276c0e871a8e4b80a8364fed5b2c2248"
+                                                           unifiedunid="714f6242a3c1427282e7cb8f1745453b"><span
+                                                style="color:red;">(已映射)</span><input type="hidden"
+                                                                                      class="info_materialName"
+                                                                                      value="二代身份证"> <span
+                                                title="二代身份证">二代身份证</span></label>
+                                        </div>
+                                        <div><label><input class="material_checkbox" type="checkbox" importlevel="2"
+                                                           value="d41bd5cb-28d2-4857-8f6f-05fa58b387cf"
+                                                           name="material_checkbox276c0e871a8e4b80a8364fed5b2c2248"><input
+                                                type="hidden" class="info_materialName"
+                                                value="医学死亡推断书"> <span title="医学死亡推断书">医学死亡推断书</span></label></div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-heading" onclick="showOrhideMaterial(this)"
+                                     style="overflow: auto; display: block;">
+                                    <div class="service_name_div">
+                                        <span class="glyphicon glyphicon-list-alt"></span>
+                                        <span title="公益性公墓标准墓穴申请">公益性公墓标准墓穴申请</span>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body">
+                                    <input type="hidden" class="info_serviceUnid"
+                                           value="0E35E1622BECFC51B4BA94D1ED63B175">
+                                    <input type="hidden" class="info_serviceName" value="公益性公墓标准墓穴申请">
+                                    <input type="hidden" class="info_deptUnid" value="321311MZ">
+                                    <input type="hidden" class="info_deptName" value="宿豫区民政局">
+                                    <input type="hidden" class="info_phaseUnid"
+                                           value="904581a0533e48589cfe519b57ddf1b9">
+
+                                    <div class="materialList">
+                                        <div><label><input class="material_checkbox" type="checkbox" importlevel="1"
+                                                           value="999D04274E36F8B9D3800D072337CE63"
+                                                           name="material_checkbox0E35E1622BECFC51B4BA94D1ED63B175"><input
+                                                type="hidden" class="info_materialName"
+                                                value="公益性公墓标准墓穴使用审批表"> <span
+                                                title="公益性公墓标准墓穴使用审批表">公益性公墓标准墓穴使用审批表</span></label></div>
+                                        <div><label><input class="material_checkbox mapped" style="display:none;"
+                                                           type="checkbox" importlevel="1"
+                                                           value="5213B122B4FC690D903C49C4E865C169"
+                                                           name="material_checkbox0E35E1622BECFC51B4BA94D1ED63B175"
+                                                           unifiedunid="7a81f43f4eb040f1a0db9c3f4efe9666"><span
+                                                style="color:red;">(已映射)</span><input type="hidden"
+                                                                                      class="info_materialName"
+                                                                                      value="身故人员的火化证复印件"> <span
+                                                title="身故人员的火化证复印件">身故人员的火化证复印件</span></label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:none;">
+                        <div class="not_exists_data">暂无数据</div>
+                    </div>
+                </td>
+                <td style="text-align: center;border-top:0px solid #FFF">
+                    <a href="javascript:void(0);" class="btn btn-danger" style="position: fixed;right:46%;top:20%;">
+                        材料映射
+                        <i class="glyphicon glyphicon-arrow-right"></i>
+                    </a>
+                </td>
+                <td style="vertical-align:top;text-align:left;" width="45%">
+                    <input type="hidden" value="true">
+                    <div id="target_div">
+                        <div id="unified_material_panel" style="display: block;" class="panel panel-default">
+                            <div class="panel-heading" onclick="showOrhideMaterial(this)" style="overflow: auto;">
+                                <div class="unified_material_name_div">
+                                    <span class="glyphicon glyphicon-duplicate"></span>
+                                    <span title="二代身份证">二代身份证</span>
+                                </div>
+                                <div class="unified_material_btn">
+                                    <a class="btn btn-default btn-sm">删除 </a>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="display:none;">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col width="10%">
+                                        <col width="45%">
+                                        <col width="45%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <td>序号</td>
+                                        <td>材料名称</td>
+                                        <td>所属事项</td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody>
+                                    <input type="hidden" class="unifiedMaterial"
+                                           unifiedserviceunid="276c0e871a8e4b80a8364fed5b2c2248"
+                                           unifiedmaterialunid="77cd2a42-9668-45d8-b1b2-0f57c784da39">
+                                    <tr materialunid="77cd2a42-9668-45d8-b1b2-0f57c784da39">
+                                        <td>1</td>
+                                        <td title="二代身份证">二代身份证</td>
+                                        <td title="户口登记,注销,迁移">户口登记,注销,迁移</td>
+                                    </tr>
+
+                                    <input type="hidden" class="unifiedMaterial"
+                                           unifiedserviceunid="7B883B3DBD195C5E7F143EF2DDC110D0"
+                                           unifiedmaterialunid="DBAA55C852CDEDFC3FB8A961FA35421E">
+                                    <tr materialunid="DBAA55C852CDEDFC3FB8A961FA35421E">
+                                        <td>2</td>
+                                        <td title="逝者身份证">逝者身份证</td>
+                                        <td title="惠民殡葬办理">惠民殡葬办理</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="panel-heading" onclick="showOrhideMaterial(this)" style="overflow: auto;">
+                                <div class="unified_material_name_div">
+                                    <span class="glyphicon glyphicon-duplicate"></span>
+                                    <span title="身故人员的火化证复印件">身故人员的火化证复印件</span>
+                                </div>
+                                <div class="unified_material_btn">
+                                    <a class="btn btn-default btn-sm">删除 </a>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="display:none;">
+                                <table class="table table-bordered">
+                                    <colgroup>
+                                        <col width="10%">
+                                        <col width="45%">
+                                        <col width="45%">
+                                    </colgroup>
+                                    <tbody>
+                                    <tr>
+                                        <td>序号</td>
+                                        <td>材料名称</td>
+                                        <td>所属事项</td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody>
+                                    <input type="hidden" class="unifiedMaterial"
+                                           unifiedserviceunid="0E35E1622BECFC51B4BA94D1ED63B175"
+                                           unifiedmaterialunid="5213B122B4FC690D903C49C4E865C169">
+                                    <tr materialunid="5213B122B4FC690D903C49C4E865C169">
+                                        <td>1</td>
+                                        <td
+                                                title="身故人员的火化证复印件">身故人员的火化证复印件
+                                        </td>
+                                        <td
+                                                title="公益性公墓标准墓穴申请">公益性公墓标准墓穴申请
+                                        </td>
+                                    </tr>
+
+                                    <input type="hidden" class="unifiedMaterial"
+                                           unifiedserviceunid="7B883B3DBD195C5E7F143EF2DDC110D0"
+                                           unifiedmaterialunid="B0F80E9D6AB0F7571D8D8F3DB5260136">
+                                    <tr materialunid="B0F80E9D6AB0F7571D8D8F3DB5260136">
+                                        <td>2</td>
+                                        <td
+                                                title="火化证">火化证
+                                        </td>
+                                        <td
+                                                title="惠民殡葬办理">惠民殡葬办理
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display: none;">
+                        <div class="not_exists_data">暂无数据</div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script th:inline="javascript">
+    var moduleUnid = [[${moduleUnid}]];
+</script>
+<script type="text/javascript">
+    $(function () {
+        //获取初始化数据
+        $.ajax({
+            type: "get",
+            url: "get_materialConfig",
+            data: {"moduleUnid":moduleUnid},
+            dataType: "text",
+            success: function (res) {
+                console.log(res);
+            }
+        });
+
+
+    });
+
+
+    //隐藏或显示材料
+    function showOrhideMaterial(obj) {
+        $(obj).next(".panel-body").toggle();
+    }
+</script>
+</html>

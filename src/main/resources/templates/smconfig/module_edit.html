@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="components/layui/css/layui.css">
+    <style>
+        .main{
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <form class="layui-form" action="" lay-filter="form1">
+        <input type="hidden" name="unid" th:value="${apasUniteModule?.unid}"/>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">模板名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="moduleName" lay-verify="required" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">模板类型</label>
+                <div class="layui-input-block">
+                    <select name="moduleType" lay-filter="aihao">
+                        <option value="民生服务" selected="">民生服务</option>
+                        <option value="商事登记">商事登记</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">模板标签</label>
+                <div class="layui-input-block">
+                    <select name="moduleClassTag" lay-filter="aihao">
+                        <option value="就业安置" selected="">就业安置</option>
+                        <option value="休闲娱乐业">休闲娱乐业</option>
+                        <option value="教育医疗">教育医疗</option>
+                        <option value="社会服务">社会服务</option>
+                        <option value="婚姻生育">婚姻生育</option>
+                        <option value="酒店餐饮业">酒店餐饮业</option>
+                        <option value="生活商超业">生活商超业</option>
+                        <option value="生产制造业">生产制造业</option>
+                        <option value="其他">其他</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">承诺天数</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="promiseDay" lay-verify="required|number" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">是否发布</label>
+                <div class="layui-input-inline">
+                    <input type="checkbox" checked="" name="isPublish" lay-skin="switch" lay-filter="switchTest"
+                           lay-text="ON|OFF">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">去现场次数</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="sceneNum" lay-verify="required|number" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit1">保存</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="components/jquery/jquery.ajax.js"></script>
+<script type="text/javascript" src="components/layui/layui.js"></script>
+<script th:inline="javascript">
+    var apasUniteModule = [[${apasUniteModule}]];
+</script>
+<script>
+    layui.use(['form', 'layedit'], function () {
+        var form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+
+        if(!!apasUniteModule){
+            var _isPublish = apasUniteModule.isPublish == 'Y' ? true : false;
+            form.val('form1', {
+                "moduleName": apasUniteModule.moduleName
+                , "moduleType": apasUniteModule.moduleType
+                , "moduleClassTag": apasUniteModule.moduleClassTag
+                , "promiseDay": apasUniteModule.promiseDay
+                , "isPublish": _isPublish
+                , "sceneNum": apasUniteModule.sceneNum
+            });
+        }
+        //自定义验证规则
+        form.verify({
+            title: function (value) {
+                if (value.length < 5) {
+                    return '标题至少得5个字符啊';
+                }
+            }
+            , pass: [
+                /^[\S]{6,12}$/
+                , '密码必须6到12位，且不能出现空格'
+            ]
+            , content: function (value) {
+                layedit.sync(editIndex);
+            }
+        });
+
+        //监听提交
+        form.on('submit(submit1)', function (data) {
+            var PapasUniteModule = data.field;
+            //PapasUniteModule.sceneNum = parseInt(PapasUniteModule.sceneNum);
+            //PapasUniteModule.promiseDay = parseInt(PapasUniteModule.promiseDay);
+            $.ajax({
+                type: "post",
+                url: "save_moduleConfig",
+                data: PapasUniteModule,
+                dataType:"text",
+                success: function (res) {
+                    if (res > 0) {
+                        layer.alert("保存成功");
+                        parent.layui.table.reload('grid');
+                    }else{
+                        layer.alert("保存失败");
+                    }
+                }
+            });
+            return false;
+        });
+
+    });
+</script>
+</html>

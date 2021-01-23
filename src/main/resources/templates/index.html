@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高港区“一件事”</title>
+    <link rel="stylesheet" href="components/layui/css/layui.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="components/font-awesome-4.7.0/css/font-awesome.css">
+</head>
+<body>
+<div class="main">
+    <div class="top"></div>
+    <div class="center">
+        <ul class="tab tab-large">
+            <li class="msfw active" ><a href="javascript:switchType('msfw')" style="display: block;">民生服务</a></li>
+            <li class="ssdj"><a href="javascript:javascript:switchType('ssdj')" style="display: block;">商事登记</a></li>
+        </ul>
+        <div class="tabs-content">
+            <div class="tabs-panel msfw active">
+                <div class="link-item link-list">
+                    <div class="link-item" >
+                        <div class="link-title" id="1-0"><i class="fa fa-futbol-o"></i>&nbsp;就业安置<span class="sp-tip">(共3项)</span></div>
+                        <div class="select-tab-collapse-wrapper">
+                            <ul class="select-tab span4tab filter-ul">
+                                <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '民生服务' && apasUniteModule.moduleClassTag eq '就业安置'}">
+                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="link-item">
+                        <div class="link-title" id="1-0"><i class="fa fa-yelp"></i>&nbsp;社会服务<span class="sp-tip">(共2项)</span></div>
+                        <div class="select-tab-collapse-wrapper">
+                            <ul class="select-tab span4tab filter-ul">
+                                <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '民生服务' && apasUniteModule.moduleClassTag eq '社会服务'}">
+                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="link-item">
+                        <div class="link-title" id="1-0"><i class="fa fa-child"></i>&nbsp;婚姻生育<span class="sp-tip">(共3项)</span></div>
+                        <div class="select-tab-collapse-wrapper">
+                            <ul class="select-tab span4tab filter-ul">
+                                <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '民生服务' && apasUniteModule.moduleClassTag eq '婚姻生育'}">
+                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tabs-panel ssdj">
+                <div class="link-item link-list">
+                    <div class="link-item" >
+                        <div class="link-title" id="1-0"><i class="fa fa-optin-monster"></i>&nbsp;休闲娱乐业<span class="sp-tip">(共4项)</span></div>
+                        <div class="select-tab-collapse-wrapper">
+                            <ul class="select-tab span4tab filter-ul">
+                                <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '休闲娱乐业'}">
+                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="link-item">
+                        <div class="link-title" id="1-0"><i class="fa fa-heartbeat"></i>&nbsp;教育医疗<span class="sp-tip">(共6项)</span></div>
+                        <div class="select-tab-collapse-wrapper">
+                            <ul class="select-tab span4tab filter-ul">
+                                <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '教育医疗'}">
+                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="link-item">
+                        <div class="link-title" id="1-0"><i class="fa fa-industry"></i>&nbsp;生产制造业<span class="sp-tip">(共3项)</span></div>
+                        <div class="select-tab-collapse-wrapper">
+                            <ul class="select-tab span4tab filter-ul">
+                                <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '生产制造业'}">
+                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="link-item">
+                        <div class="link-title" id="1-0"><i class="fa fa-yelp"></i>&nbsp;社会服务<span class="sp-tip">(共1项)</span></div>
+                        <div class="select-tab-collapse-wrapper">
+                            <ul class="select-tab span4tab filter-ul">
+                                <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '社会服务'}">
+                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="link-item">
+                        <div class="link-title" id="1-0"><i class="fa fa-glass"></i>&nbsp;酒店餐饮业<span class="sp-tip">(共5项)</span></div>
+                        <div class="select-tab-collapse-wrapper">
+                            <ul class="select-tab span4tab filter-ul">
+                                <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '酒店餐饮业'}">
+                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="link-item">
+                        <div class="link-title" id="1-0"><i class="fa fa-ravelry"></i>&nbsp;其他<span class="sp-tip">(共3项)</span></div>
+                        <div class="select-tab-collapse-wrapper">
+                            <ul class="select-tab span4tab filter-ul">
+                                <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '其他'}">
+                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="components/jquery/jquery.ajax.js"></script>
+<script type="text/javascript" src="components/layui/layui.js"></script>
+<script>
+    function switchType(type){
+        $('.tabs-panel').removeClass('active');
+        if('msfw' == type){
+            $('.ssdj').removeClass('active');
+            $('.msfw').addClass('active');
+        }else{
+            $('.msfw').removeClass('active');
+            $('.ssdj').addClass('active');
+        }
+    }
+</script>
+</html>

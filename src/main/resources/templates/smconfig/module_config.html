@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一件事模型管理</title>
+    <link rel="stylesheet" href="components/layui/css/layui.css">
+    <style>
+        .main {
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .sp-title {
+            height: 50px;
+            line-height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .sp-search {
+            width: 100%;
+            height: 40px;
+        }
+        .sp-search-c{
+            display: inline-flex;
+            float: right;
+        }
+        #moduleName {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="sp-title">一件事配置中心</div>
+    <div class="sp-search">
+        <div class="sp-search-c">
+            <input id="moduleName" class="layui-input" placeholder="请输入一件事名称"/>
+            <button type="button" class="layui-btn" onclick="search()">查询</button>
+        </div>
+    </div>
+    <div class="sp-table">
+        <table id="grid" lay-filter="table01"></table>
+    </div>
+</div>
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+        <button type="button" class="layui-btn layui-btn-sm layui-btn-normal" lay-event="add"><i
+                class="layui-icon layui-icon-addition"></i> 新增一件事
+        </button>
+    </div>
+</script>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    <a class="layui-btn layui-btn-xs" style="background-color: #009688;" lay-event="service_config">事项配置</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="material_config">材料合并</a>
+</script>
+
+</body>
+<script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="components/jquery/jquery.ajax.js"></script>
+<script type="text/javascript" src="components/layui/layui.js"></script>
+<script>
+    layui.use(['layer', 'table'], function () {
+        var table = layui.table;
+        var layer = layui.layer;
+
+        table.render({
+            id: 'grid'
+            , elem: '#grid'
+            , height: 524
+            , url: 'get_module' //数据接口
+            , page: true //开启分页
+            , request: {
+                pageName: 'pageNo' //页码的参数名称，默认：page
+                , limitName: 'sizeNo' //每页数据量的参数名，默认：limit
+            }
+            , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
+            , defaultToolbar: ['filter', 'exports', 'print']
+            , cellMinWidth: 80
+            , cols: [
+                [ //表头
+                    {field: '#', title: '序号', fixed: 'left', type: 'numbers'}
+                    , {field: 'moduleName', title: '模板名称', sort: true, align: 'center', width: 300}
+                    , {field: 'moduleType', title: '模板类型', sort: true, align: 'center'}
+                    , {field: 'moduleClassTag', title: '模板标签', sort: true, align: 'center'}
+                    , {field: 'promiseDay', title: '承诺天数', align: 'center'}
+                    , {field: 'isPublish', title: '是否发布', align: 'center'}
+                    , {field: 'sceneNum', title: '去现场次数', align: 'center'}
+                    , {fixed: 'right', title: '操作', align: 'center', toolbar: '#barDemo', width: 260}
+                ]
+            ]
+        });
+
+        //监听事件
+        table.on('toolbar(table01)', function (obj) {
+            var checkStatus = table.checkStatus(obj.config.id);
+            switch (obj.event) {
+                case 'add':
+                    layer.open({
+                        type: 2,
+                        title: '基本信息',
+                        shadeClose: true,
+                        shade: 0.8,
+                        area: ['500px', '500px'],
+                        content: 'module_edit'
+                    });
+            }
+            ;
+        });
+
+        //监听行工具事件
+        table.on('tool(table01)', function (obj) { //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+            var data = obj.data //获得当前行数据
+            var layEvent = obj.event; //获得 lay-event 对应的值
+            if (layEvent === 'detail') {
+                layer.msg('查看操作');
+            } else if (layEvent === 'del') {
+                layer.confirm('真的删除么', function (index) {
+                    layer.close(index);
+                    $.ajax({
+                        type: "post",
+                        url: "delete_moduleConfig",
+                        data: {"moduleUnid": data.unid},
+                        dataType: "text",
+                        success: function (res) {
+                            if (res > 0) {
+                                table.reload('grid');
+                            } else {
+                                layer.alert("操作失败");
+                            }
+                        }
+                    });
+
+                });
+            } else if (layEvent === 'edit') {
+                layer.open({
+                    type: 2,
+                    title: '模型基本信息',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['500px', '500px'],
+                    content: 'module_edit?moduleUnid=' + data.unid
+                });
+            } else if (layEvent === 'service_config') {
+                layer.open({
+                    type: 2,
+                    title: '事项配置',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['1300px', '600px'],
+                    content: 'service_config?moduleUnid=' + data.unid
+                });
+            } else if (layEvent === 'material_config') {
+                layer.open({
+                    type: 2,
+                    title: '统一材料',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['1300px', '600px'],
+                    content: 'material_config?moduleUnid=' + data.unid
+                });
+            }
+        });
+
+    });
+
+    function search() {
+        var search_moduleName = $("#moduleName").val();
+        layui.table.reload('grid', {
+            where: {"moduleName": search_moduleName}
+        });
+    }
+
+</script>
+</html>

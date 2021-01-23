@@ -1,0 +1,392 @@
+﻿<!DOCTYPE html>
+<html xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>事项配置</title>
+    <!--[if lt IE 9]>
+    <?import namespace="v" implementation="#default#VML" ?>
+    <![endif]-->
+    <link rel="stylesheet" type="text/css" href="components/GooFlow1.1/codebase/GooFlow.css"/>
+    <style>
+        .myForm {
+            display: block;
+            margin: 0px;
+            padding: 0px;
+            line-height: 1.5;
+            border: #ccc 1px solid;
+            font: 12px Arial, Helvetica, sans-serif;
+            margin: 5px 5px 0px 0px;
+            border-radius: 4px;
+        }
+
+        .myForm .form_title {
+            background: #428bca;
+            padding: 4px;
+            color: #fff;
+            border-radius: 3px 3px 0px 0px;
+        }
+
+        .myForm .form_content {
+            padding: 4px;
+            background: #fff;
+        }
+
+        .myForm .form_content table {
+            border: 0px
+        }
+
+        .myForm .form_content table td {
+            border: 0px
+        }
+
+        .myForm .form_content table .th {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .myForm .form_btn_div {
+            text-align: center;
+            border-top: #ccc 1px solid;
+            background: #f5f5f5;
+            padding: 4px;
+            border-radius: 0px 0px 3px 3px;
+        }
+
+        #propertyForm {
+            float: right;
+            width: 280px
+        }
+
+        #title {
+            text-align: center;
+            height: 30px;
+            line-height: 30px;
+            color: blue;
+        }
+
+        .sp-chose {
+            border: 1px solid #ccc;
+            padding: 3px 5px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #428bca;
+        }
+
+        .sp-input {
+            width: 158px;
+            background-color: #cccccc;
+        }
+    </style>
+    <script type="text/javascript" src="components/GooFlow1.1/demo/child.js"></script>
+    <script type="text/javascript" src="components/GooFlow1.1/plugin/jquery.min.js"></script>
+    <script type="text/javascript" src="components/GooFlow1.1/codebase/GooFunc.js"></script>
+    <script type="text/javascript" src="components/GooFlow1.1/plugin/json2.js"></script>
+    <link rel="stylesheet" type="text/css" href="components/GooFlow1.1/demo/default.css"/>
+    <script type="text/javascript" src="components/GooFlow1.1/codebase/GooFlow.js"></script>
+    <script type="text/javascript" src="components/GooFlow1.1/codebase/GooFlow.color.js"></script>
+    <script type="text/javascript" src="components/GooFlow1.1/plugin/promise.min.js"></script>
+    <script type="text/javascript" src="components/GooFlow1.1/plugin/html2canvas.min.js"></script>
+    <!--[if lte IE 11]-->
+    <script type="text/javascript" src="components/GooFlow1.1/plugin/canvg.js"></script>
+    <!--[endif]-->
+    <script type="text/javascript" src="components/GooFlow1.1/codebase/GooFlow.export.js"></script>
+</head>
+<body style="background:#EEEEEE">
+<div id="title"></div>
+<div id="gooFlow" style="margin:5px;float:left"></div>
+<form class="myForm" id="propertyForm">
+    <div class="form_title">事项属性设置</div>
+    <div class="form_content">
+        <table id="pop">
+            <tr>
+                <td class="th">id：</td>
+                <td><input class="sp-input" readonly type="text" id="ele_id"/></td>
+            </tr>
+            <tr>
+                <td class="th">事项名称：</td>
+                <td>
+                    <input class="sp-input" readonly type="text" id="ele_name"/>
+                    <span class="sp-chose" onclick="choseService()">选择</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="th">事项编码：</td>
+                <td><input class="sp-input" readonly type="text" id="ele_serviceid"/></td>
+            </tr>
+            <tr>
+                <td class="th">model：</td>
+                <td><input class="sp-input" readonly type="text" id="ele_model"/></td>
+            </tr>
+            <tr>
+                <td class="th">Left-r：</td>
+                <td><input class="sp-input" readonly type="text" id="ele_left"/></td>
+            </tr>
+            <tr>
+                <td class="th">Top-r：</td>
+                <td><input class="sp-input" readonly type="text" id="ele_top"/></td>
+            </tr>
+            <tr>
+                <td class="th">Width：</td>
+                <td><input class="sp-input" readonly type="text" id="ele_width"/></td>
+            </tr>
+            <tr>
+                <td class="th">Height：</td>
+                <td><input class="sp-input" readonly type="text" id="ele_height"/></td>
+            </tr>
+            <tr>
+                <td class="th">From：</td>
+                <td><input class="sp-input" readonly type="text" id="ele_from"/></td>
+            </tr>
+            <tr>
+                <td class="th">To：</td>
+                <td><input class="sp-input" readonly type="text" id="ele_to"/></td>
+            </tr>
+        </table>
+    </div>
+    <!--<div class="form_btn_div">
+        <input type="button" value="确定" onclick="saveNode()"/>
+    </div>-->
+</form>
+<!--<div style="clear:both">
+    <input id="submit" type="button" value='导出结果' onclick="Export()"/>
+    <textarea id="result" row="6"></textarea>
+</div>-->
+</body>
+<script th:inline="javascript">
+    var moduleUnid = [[${moduleUnid}]];
+</script>
+<script type="text/javascript">
+    /*toolBtns:["start round","end round","task round","node","chat","state","plug","join","fork","complex mix"],*/
+    var property = {
+        width: 1000,
+        height: 500,
+        toolBtns: ["node"],
+        haveHead: true,
+        headBtns: ["save", "undo", "redo", "reload"],//如果haveHead=true，则定义HEAD区的按钮
+        haveTool: true,
+        haveGroup: true,
+        useOperStack: true
+    };
+    var remark = {
+        cursor: "选择指针",
+        direct: "结点连线",
+        start: "入口结点",
+        "end": "结束结点",
+        "task": "任务结点",
+        node: "自动结点",
+        chat: "决策结点",
+        state: "状态结点",
+        plug: "附加插件",
+        fork: "分支结点",
+        "join": "联合结点",
+        "complex mix": "复合结点",
+        group: "组织划分框编辑开关"
+    };
+    var gooFlow;
+    $(document).ready(function () {
+        gooFlow = $.createGooFlow($("#gooFlow"), property);
+        gooFlow.setNodeRemarks(remark);
+        gooFlow.loadDataAjax({
+            type: "get",
+            url: "get_serviceConfig",
+            data: {"moduleUnid": moduleUnid},
+            success: function () {
+                $("#title").html(gooFlow.$title);
+            }
+        })
+
+        //操作单元删除事件
+        gooFlow.onItemDel = function (id, type) {
+            return true;
+        }
+        gooFlow.onItemFocus = function (id, model) {
+            var obj;
+            $("#ele_model").val(model);
+            $("#ele_id").val(id);
+            if (model == "line") {
+                obj = this.$lineData[id];
+                $("#ele_type").val(obj.type);
+                $("#ele_left").val("");
+                $("#ele_top").val("");
+                $("#ele_width").val("");
+                $("#ele_height").val("");
+                $("#ele_from").val(obj.from);
+                $("#ele_to").val(obj.to);
+                $("#ele_name").val(obj.name);
+                $(".sp-chose").hide();
+                $(".form_btn_div").hide();
+
+            } else if (model == "node") {
+                obj = this.$nodeData[id];
+                $("#ele_type").val(obj.type);
+                $("#ele_left").val(obj.left);
+                $("#ele_top").val(obj.top);
+                $("#ele_width").val(obj.width);
+                $("#ele_height").val(obj.height);
+                $("#ele_from").val("");
+                $("#ele_to").val("");
+                if (obj.hasOwnProperty("serviceid")) {
+                    $("#ele_serviceid").val(obj.serviceid);
+                } else {
+                    $("#ele_serviceid").val("");
+                }
+                $("#ele_name").val(obj.name);
+                $(".form_btn_div").show();
+                $(".sp-chose").show();
+            }
+            return true;
+        };
+        gooFlow.onItemBlur = function (id, model) {
+            document.getElementById("propertyForm").reset();
+            return true;
+        };
+        gooFlow.onPrintClick = function () {
+            gooFlow.exportDiagram("gooFlow000");
+        }
+        gooFlow.onBtnSaveClick = function () {
+            var obj = gooFlow.exportData();
+            var nodes = obj.nodes;
+            var lines = obj.lines;
+            var param = [];
+            var _obj = null;
+            for (i in nodes) {
+                _obj = new Object();
+                _obj.id = parseInt(i);
+                _obj.serviceid = gooFlow.$nodeData[i].serviceid;
+                _obj.service_name = gooFlow.$nodeData[i].name;
+                _obj.left2 = gooFlow.$nodeData[i].left;
+                _obj.top = gooFlow.$nodeData[i].top;
+                _obj.type = gooFlow.$nodeData[i].type;
+                _obj.width = gooFlow.$nodeData[i].width;
+                _obj.height = gooFlow.$nodeData[i].height;
+                _obj.alt = gooFlow.$nodeData[i].alt;
+                _obj.pre_serviceid = "";
+                for (j in lines) {
+                    if (gooFlow.$lineData[j].to == i) {
+                        //_obj.pre_serviceid = gooFlow.$lineData[j].from;
+                        var pre_id = parseInt(gooFlow.$lineData[j].from);
+                        _obj.pre_id = pre_id;
+                        _obj.pre_serviceid = gooFlow.$nodeData[pre_id].serviceid
+                    }
+                }
+                param.push(_obj);
+            }
+            $.ajax({
+                type: "post",
+                url: "save_serviceConfig",
+                data: {"nodeData": JSON.stringify(param), "moduleUnid": moduleUnid},
+                dataType: "text",
+                success: function (res) {
+                    if (res > 0) {
+                        alert("保存成功");
+                    } else {
+                        alert("保存失败");
+                    }
+                }
+            });
+
+
+        }
+        gooFlow.onFreshClick = function () {
+            location.reload();
+        }
+        //新建流程
+        gooFlow.onBtnNewClick = function () {
+            //gooFlow.clearData();
+        }
+
+    });
+    var out;
+
+    function Export() {
+        var _o = deepCopy(gooFlow.exportData());
+        gooFlow.clearData();
+        gooFlow.loadData(_o);
+        document.getElementById("result").value = JSON.stringify(gooFlow.exportData());
+    }
+
+    //事项属性修改保存
+    function saveNode() {
+        var _nodeId = $("#ele_id").val();
+        if (_nodeId.trim() == "") {
+            alert("请先选择节点！");
+            return false;
+        }
+
+        var jsonData = gooFlow.exportData();
+        $.each(jsonData.nodes, function (i, n) {
+            if (i == _nodeId) {
+                $("#pop").find("input").each(function () {
+                    if ($(this).prop('id')) {
+                        var _p = $(this).prop('id').substring(4, $(this).prop('id').length + 1);
+                        if (_p == 'top' || _p == 'height' || _p == 'left' || _p == 'width') {
+                            n[_p] = parseInt($(this).val());
+                        } else {
+                            n[_p] = $(this).val();
+                        }
+                    }
+                });
+                jsonData.nodes[i] = n;
+            }
+
+        });
+
+        var _jsonData = deepCopy(jsonData);
+        gooFlow.clearData();
+        gooFlow.loadData(_jsonData);
+    }
+
+    //事项选择
+    function choseService() {
+        var nodeId = gooFlow.$focus;
+        if (nodeId == '' || nodeId == null || nodeId == undefined) {
+            alert("请选择事项节点");
+            return false;
+        }
+        parent.layer.open({
+            type: 2,
+            title: '事项选择',
+            shadeClose: true,
+            shade: 0.8,
+            area: ['1200px', '500px'],
+            content: 'service_chose'
+        });
+    }
+
+    function setService(serviceid, servicename) {
+        $("#ele_serviceid").val(serviceid);
+        $("#ele_name").val(servicename);
+        saveNode();
+    }
+
+    function getClass(o) { //判断数据类型
+        return Object.prototype.toString.call(o).slice(8, -1);
+    }
+
+    function deepCopy(obj) {
+        var result, oClass = getClass(obj);
+
+        if (oClass == "Object") result = {}; //判断传入的如果是对象，继续遍历
+        else if (oClass == "Array") result = []; //判断传入的如果是数组，继续遍历
+        else return obj; //如果是基本数据类型就直接返回
+
+        for (var i in obj) {
+            var copy = obj[i];
+
+            if (getClass(copy) == "Object") result[i] = deepCopy(copy); //递归方法 ，如果对象继续变量obj[i],下一级还是对象，就obj[i][i]
+            else if (getClass(copy) == "Array") result[i] = deepCopy(copy); //递归方法 ，如果对象继续数组obj[i],下一级还是数组，就obj[i][i]
+            else result[i] = copy; //基本数据类型则赋值给属性
+        }
+
+        return result;
+    }
+
+    function checkRate(nubmer) {
+        var re = /^[0-9]+.?[0-9]*/;//判断字符串是否为数字//判断正整数/[1−9]+[0−9]∗]∗/
+        if (!re.test(nubmer)) {
+            return false
+        }
+        return true;
+    }
+</script>
+</html>

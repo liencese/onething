@@ -1,0 +1,25 @@
+.input-text {
+	border: 1px solid #999999;	
+}
+.validation-failed {
+	border: 1px solid #FF3300;	
+}
+.validation-advice {
+	color: #FF3300;
+	display:block;
+	margin-left: 5px;
+	position:absolute;
+	background-color:white;
+	line-height:30px;
+	border: 1px solid lightGrey;
+	background-image: url('img/error.png');
+	background-repeat: no-repeat;
+	background-position:5px 8px;
+	z-index: 999;
+}
+
+.validation-advice span{
+	margin-left: 20px;
+	padding: 2px 5px;
+	white-space: nowrap;
+}
