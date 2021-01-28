@@ -14,190 +14,70 @@ import java.util.List;
 public class ApasMaterial {
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 材料主键
-     */
+    private String unid;
+    private String serviceid;
+    private String servicename;
+    private String infoname;
+    private String type;
+    private String memo;
+    private String createtime;
+    private String sub_materialid;
+    private String sortid;
+    private String state;
+    private String code;
+    private String pagenum;
+    private String pagecopynum;
+    private String need_electronic;
+    private String affixtype;
+    private String phase;
+    private String gettype_unids;
+    private String materialguid;
+    private String necessity_desc;
+    private String format;
+    private String detail_requirement;
+    private String from_unid;
+    private String parent_materialunid;
 
-    private String unid = "";
+    private String material_rid;//合并后的材料id
 
-    /**
-     * 材料分类主键
-     */
-
-    private String classifyUnids = "";
-
-
-    /**
-     * 审批事项主键
-     */
-
-    private String serviceUnid = "";
-
-    /**
-     * 材料编码
-     */
-
-    private String code = "";
-
-    /**
-     * 材料名称
-     */
-
-    private String name = "";
-
-
-    /**
-     * 材料形式
-     */
-
-    private String format = "";
-
-
-    private String memo = "";
-
-
-    private String getTypes = "";
-
-
-    private String importLevel = "";
-
-
-    private int srcNum = 0;
-
-
-    private int copyNum = 0;
-
-
-    private String isNeedElec = "";
-
-
-    private String affixType = "";
-
-
-    private String phaseType = "";
-
-
-    private String necessityDesc = "";
-
-
-    private String submitMedium = "";
-
-
-    private String submitRequire = "";
-
-
-    private String acceptRequire = "";
-
-
-    private String srcWay = "";
-
-
-    private String srcCode = "";
-
-
-    private String proCode = "";
-
-
-    private String createTime = "";
-
-
-    private int sortid = 0;
-
-
-    private String status = "";
-
-    /**
-     * 空白表格下载连接
-     */
-    private String form_url;
-
-    /**
-     * 示例样表下载链接
-     */
-    private String example_url;
-
-    /**
-     * 统一后材料id
-     */
-    private String material_rid;
-
-    public String getMaterial_rid() {
-        return material_rid;
-    }
-
-    public void setMaterial_rid(String material_rid) {
-        this.material_rid = material_rid;
-    }
-
-    public String getForm_url() {
-        return form_url;
-    }
-
-    public void setForm_url(String form_url) {
-        this.form_url = form_url;
-    }
-
-    public String getExample_url() {
-        return example_url;
-    }
-
-    public void setExample_url(String example_url) {
-        this.example_url = example_url;
-    }
-
-    /**
-     * @return the unid
-     */
     public String getUnid() {
         return unid;
     }
 
-    /**
-     * @param unid the unid to set
-     */
     public void setUnid(String unid) {
         this.unid = unid;
     }
 
-    public String getClassifyUnids() {
-        return classifyUnids;
+    public String getServiceid() {
+        return serviceid;
     }
 
-    public void setClassifyUnids(String classifyUnids) {
-        this.classifyUnids = classifyUnids;
+    public void setServiceid(String serviceid) {
+        this.serviceid = serviceid;
     }
 
-
-    public String getServiceUnid() {
-        return serviceUnid;
+    public String getServicename() {
+        return servicename;
     }
 
-    public void setServiceUnid(String serviceUnid) {
-        this.serviceUnid = serviceUnid;
+    public void setServicename(String servicename) {
+        this.servicename = servicename;
     }
 
-    public String getCode() {
-        return code;
+    public String getInfoname() {
+        return infoname;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setInfoname(String infoname) {
+        this.infoname = infoname;
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getFormat() {
-        return format;
-    }
-
-    public void setFormat(String format) {
-        this.format = format;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getMemo() {
@@ -208,143 +88,147 @@ public class ApasMaterial {
         this.memo = memo;
     }
 
-    public String getGetTypes() {
-        return getTypes;
+    public String getCreatetime() {
+        return createtime;
     }
 
-    public void setGetTypes(String getTypes) {
-        this.getTypes = getTypes;
+    public void setCreatetime(String createtime) {
+        this.createtime = createtime;
     }
 
-    public String getImportLevel() {
-        return importLevel;
+    public String getSub_materialid() {
+        return sub_materialid;
     }
 
-    public void setImportLevel(String importLevel) {
-        this.importLevel = importLevel;
+    public void setSub_materialid(String sub_materialid) {
+        this.sub_materialid = sub_materialid;
     }
 
-    public int getSrcNum() {
-        return srcNum;
-    }
-
-    public void setSrcNum(int srcNum) {
-        this.srcNum = srcNum;
-    }
-
-    public int getCopyNum() {
-        return copyNum;
-    }
-
-    public void setCopyNum(int copyNum) {
-        this.copyNum = copyNum;
-    }
-
-    public String getIsNeedElec() {
-        return isNeedElec;
-    }
-
-    public void setIsNeedElec(String isNeedElec) {
-        this.isNeedElec = isNeedElec;
-    }
-
-    public String getAffixType() {
-        return affixType;
-    }
-
-    public void setAffixType(String affixType) {
-        this.affixType = affixType;
-    }
-
-    public String getPhaseType() {
-        return phaseType;
-    }
-
-    public void setPhaseType(String phaseType) {
-        this.phaseType = phaseType;
-    }
-
-    public String getNecessityDesc() {
-        return necessityDesc;
-    }
-
-    public void setNecessityDesc(String necessityDesc) {
-        this.necessityDesc = necessityDesc;
-    }
-
-    public String getSubmitMedium() {
-        return submitMedium;
-    }
-
-    public void setSubmitMedium(String submitMedium) {
-        this.submitMedium = submitMedium;
-    }
-
-    public String getSubmitRequire() {
-        return submitRequire;
-    }
-
-    public void setSubmitRequire(String submitRequire) {
-        this.submitRequire = submitRequire;
-    }
-
-    public String getAcceptRequire() {
-        return acceptRequire;
-    }
-
-    public void setAcceptRequire(String acceptRequire) {
-        this.acceptRequire = acceptRequire;
-    }
-
-    public String getSrcWay() {
-        return srcWay;
-    }
-
-    public void setSrcWay(String srcWay) {
-        this.srcWay = srcWay;
-    }
-
-    public String getSrcCode() {
-        return srcCode;
-    }
-
-    public void setSrcCode(String srcCode) {
-        this.srcCode = srcCode;
-    }
-
-    public String getProCode() {
-        return proCode;
-    }
-
-    public void setProCode(String proCode) {
-        this.proCode = proCode;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public int getSortid() {
+    public String getSortid() {
         return sortid;
     }
 
-    public void setSortId(int sortid) {
+    public void setSortid(String sortid) {
         this.sortid = sortid;
     }
 
-    public String getStatus() {
-        return status;
+    public String getState() {
+        return state;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setState(String state) {
+        this.state = state;
     }
 
-    public void setSortid(int sortid) {
-        this.sortid = sortid;
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getPagenum() {
+        return pagenum;
+    }
+
+    public void setPagenum(String pagenum) {
+        this.pagenum = pagenum;
+    }
+
+    public String getPagecopynum() {
+        return pagecopynum;
+    }
+
+    public void setPagecopynum(String pagecopynum) {
+        this.pagecopynum = pagecopynum;
+    }
+
+    public String getNeed_electronic() {
+        return need_electronic;
+    }
+
+    public void setNeed_electronic(String need_electronic) {
+        this.need_electronic = need_electronic;
+    }
+
+    public String getAffixtype() {
+        return affixtype;
+    }
+
+    public void setAffixtype(String affixtype) {
+        this.affixtype = affixtype;
+    }
+
+    public String getPhase() {
+        return phase;
+    }
+
+    public void setPhase(String phase) {
+        this.phase = phase;
+    }
+
+    public String getGettype_unids() {
+        return gettype_unids;
+    }
+
+    public void setGettype_unids(String gettype_unids) {
+        this.gettype_unids = gettype_unids;
+    }
+
+    public String getMaterialguid() {
+        return materialguid;
+    }
+
+    public void setMaterialguid(String materialguid) {
+        this.materialguid = materialguid;
+    }
+
+    public String getNecessity_desc() {
+        return necessity_desc;
+    }
+
+    public void setNecessity_desc(String necessity_desc) {
+        this.necessity_desc = necessity_desc;
+    }
+
+    public String getFormat() {
+        return format;
+    }
+
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    public String getDetail_requirement() {
+        return detail_requirement;
+    }
+
+    public void setDetail_requirement(String detail_requirement) {
+        this.detail_requirement = detail_requirement;
+    }
+
+    public String getFrom_unid() {
+        return from_unid;
+    }
+
+    public void setFrom_unid(String from_unid) {
+        this.from_unid = from_unid;
+    }
+
+    public String getParent_materialunid() {
+        return parent_materialunid;
+    }
+
+    public void setParent_materialunid(String parent_materialunid) {
+        this.parent_materialunid = parent_materialunid;
+    }
+
+    public String getMaterial_rid() {
+        return material_rid;
+    }
+
+    public void setMaterial_rid(String material_rid) {
+        this.material_rid = material_rid;
     }
 }

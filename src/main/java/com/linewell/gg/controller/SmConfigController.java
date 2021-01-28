@@ -170,7 +170,7 @@ public class SmConfigController {
         List<ModuleService> moduleServices = sMconfigService.getApasServiceByModuleUnid(moduleUnid);
         //原材料
         for (ModuleService moduleService : moduleServices) {
-            moduleService.setApasMaterialList(sMconfigService.getApasMaterialByServiceId(moduleService.getServiceid(),moduleMaterials));
+            moduleService.setApasMaterialList(sMconfigService.getApasMaterialByServiceId(moduleService.getServiceid(), moduleMaterials));
 
         }
 
@@ -180,5 +180,20 @@ public class SmConfigController {
         return map;
     }
 
+    @RequestMapping(value = "/save_materialConfig")
+    @ResponseBody
+    @Transactional
+    public int save_materialConfig(ModuleMaterial moduleMaterial) {
+        moduleMaterial.setUnid(UuidUtil.getUuid());
+        int r = sMconfigService.addModuleMaterial(moduleMaterial);
+        return r;
+    }
 
+    @RequestMapping(value = "/delete_materialConfig")
+    @ResponseBody
+    @Transactional
+    public int delete_materialConfig(String unid) {
+        int r = sMconfigService.deleteModuleMaterial(unid);
+        return r;
+    }
 }

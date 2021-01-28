@@ -165,4 +165,14 @@ public class SMconfigServiceImpl implements SMconfigService {
     public ApasMaterial getApasMaterialByUnid(String unid) {
         return apasMaterialMapper.getApasMaterialByUnid(unid);
     }
+
+    @Override
+    public int addModuleMaterial(ModuleMaterial moduleMaterial) {
+        return moduleMaterialMapper.addModuleMaterial(moduleMaterial);
+    }
+
+    @Override
+    public int deleteModuleMaterial(String unid) {
+        return moduleMaterialMapper.deleteModuleMaterial(unid);
+    }
 }

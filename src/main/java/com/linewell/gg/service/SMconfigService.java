@@ -36,4 +36,8 @@ public interface SMconfigService {
     List<ApasMaterial> getApasMaterialByUnids(String[] unids);
 
     ApasMaterial getApasMaterialByUnid(String unid);
+
+    int addModuleMaterial(ModuleMaterial moduleMaterial);
+
+    int deleteModuleMaterial(String unid);
 }

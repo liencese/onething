@@ -4,6 +4,7 @@ import java.util.List;
 
 public class ModuleMaterial {
 
+    private String unid;
     private String module_unid;//模板id
     private String materialids;//合并前材料id,以,分割
     private String material_rid;//合并后的材料id
@@ -11,6 +12,14 @@ public class ModuleMaterial {
     private ApasMaterial apasMaterial_r;//合并后材料
 
     private List<ApasMaterial> apasMaterialList;//原材料
+
+    public String getUnid() {
+        return unid;
+    }
+
+    public void setUnid(String unid) {
+        this.unid = unid;
+    }
 
     public String getModule_unid() {
         return module_unid;

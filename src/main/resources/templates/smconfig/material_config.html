@@ -75,197 +75,28 @@
                         <div>
                             <!-- 事项 -->
                             <div id="service_panel" class="panel panel-default">
-                                <div class="panel-heading" onclick="showOrhideMaterial(this)"
-                                     style="overflow: auto; display: block;">
-                                    <div class="service_name_div">
-                                        <span class="glyphicon glyphicon-list-alt"></span>
-                                        <span title="户口登记,注销,迁移">户口登记,注销,迁移</span>
-                                    </div>
-                                </div>
 
-                                <div class="panel-body">
-                                    <input type="hidden" class="info_serviceUnid"
-                                           value="276c0e871a8e4b80a8364fed5b2c2248">
-                                    <input type="hidden" class="info_serviceName" value="户口登记,注销,迁移">
-                                    <input type="hidden" class="info_deptUnid" value="321311GA">
-                                    <input type="hidden" class="info_deptName" value="公安局宿豫分局">
-
-                                    <div class="materialList">
-                                        <div><label><input class="material_checkbox" type="checkbox" importlevel="1"
-                                                           value="1b8c0591-9b1a-4d09-9074-192d624f2ee8"
-                                                           name="material_checkbox276c0e871a8e4b80a8364fed5b2c2248"><input
-                                                type="hidden" class="info_materialName"
-                                                value="户口簿"> <span title="户口簿">户口簿</span></label></div>
-                                        <div><label><input class="material_checkbox mapped" style="display:none;"
-                                                           type="checkbox" importlevel="1"
-                                                           value="77cd2a42-9668-45d8-b1b2-0f57c784da39"
-                                                           name="material_checkbox276c0e871a8e4b80a8364fed5b2c2248"
-                                                           unifiedunid="714f6242a3c1427282e7cb8f1745453b"><span
-                                                style="color:red;">(已映射)</span><input type="hidden"
-                                                                                      class="info_materialName"
-                                                                                      value="二代身份证"> <span
-                                                title="二代身份证">二代身份证</span></label>
-                                        </div>
-                                        <div><label><input class="material_checkbox" type="checkbox" importlevel="2"
-                                                           value="d41bd5cb-28d2-4857-8f6f-05fa58b387cf"
-                                                           name="material_checkbox276c0e871a8e4b80a8364fed5b2c2248"><input
-                                                type="hidden" class="info_materialName"
-                                                value="医学死亡推断书"> <span title="医学死亡推断书">医学死亡推断书</span></label></div>
-                                    </div>
-                                </div>
-
-                                <div class="panel-heading" onclick="showOrhideMaterial(this)"
-                                     style="overflow: auto; display: block;">
-                                    <div class="service_name_div">
-                                        <span class="glyphicon glyphicon-list-alt"></span>
-                                        <span title="公益性公墓标准墓穴申请">公益性公墓标准墓穴申请</span>
-                                    </div>
-                                </div>
-
-                                <div class="panel-body">
-                                    <input type="hidden" class="info_serviceUnid"
-                                           value="0E35E1622BECFC51B4BA94D1ED63B175">
-                                    <input type="hidden" class="info_serviceName" value="公益性公墓标准墓穴申请">
-                                    <input type="hidden" class="info_deptUnid" value="321311MZ">
-                                    <input type="hidden" class="info_deptName" value="宿豫区民政局">
-                                    <input type="hidden" class="info_phaseUnid"
-                                           value="904581a0533e48589cfe519b57ddf1b9">
-
-                                    <div class="materialList">
-                                        <div><label><input class="material_checkbox" type="checkbox" importlevel="1"
-                                                           value="999D04274E36F8B9D3800D072337CE63"
-                                                           name="material_checkbox0E35E1622BECFC51B4BA94D1ED63B175"><input
-                                                type="hidden" class="info_materialName"
-                                                value="公益性公墓标准墓穴使用审批表"> <span
-                                                title="公益性公墓标准墓穴使用审批表">公益性公墓标准墓穴使用审批表</span></label></div>
-                                        <div><label><input class="material_checkbox mapped" style="display:none;"
-                                                           type="checkbox" importlevel="1"
-                                                           value="5213B122B4FC690D903C49C4E865C169"
-                                                           name="material_checkbox0E35E1622BECFC51B4BA94D1ED63B175"
-                                                           unifiedunid="7a81f43f4eb040f1a0db9c3f4efe9666"><span
-                                                style="color:red;">(已映射)</span><input type="hidden"
-                                                                                      class="info_materialName"
-                                                                                      value="身故人员的火化证复印件"> <span
-                                                title="身故人员的火化证复印件">身故人员的火化证复印件</span></label></div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <div style="display:none;">
+                    <div id="materail_div_none" style="display:none;">
                         <div class="not_exists_data">暂无数据</div>
                     </div>
                 </td>
                 <td style="text-align: center;border-top:0px solid #FFF">
-                    <a href="javascript:void(0);" class="btn btn-danger" style="position: fixed;right:46%;top:20%;">
+                    <a href="javascript:add();" class="btn btn-danger" style="position: fixed;right:46%;top:20%;">
                         材料映射
                         <i class="glyphicon glyphicon-arrow-right"></i>
                     </a>
                 </td>
-                <td style="vertical-align:top;text-align:left;" width="45%">
+                <td id="material_panel" style="vertical-align:top;text-align:left;" width="45%">
                     <input type="hidden" value="true">
                     <div id="target_div">
                         <div id="unified_material_panel" style="display: block;" class="panel panel-default">
-                            <div class="panel-heading" onclick="showOrhideMaterial(this)" style="overflow: auto;">
-                                <div class="unified_material_name_div">
-                                    <span class="glyphicon glyphicon-duplicate"></span>
-                                    <span title="二代身份证">二代身份证</span>
-                                </div>
-                                <div class="unified_material_btn">
-                                    <a class="btn btn-default btn-sm">删除 </a>
-                                </div>
-                            </div>
-                            <div class="panel-body" style="display:none;">
-                                <table class="table table-bordered">
-                                    <colgroup>
-                                        <col width="10%">
-                                        <col width="45%">
-                                        <col width="45%">
-                                    </colgroup>
-                                    <tbody>
-                                    <tr>
-                                        <td>序号</td>
-                                        <td>材料名称</td>
-                                        <td>所属事项</td>
-                                    </tr>
-                                    </tbody>
-                                    <tbody>
-                                    <input type="hidden" class="unifiedMaterial"
-                                           unifiedserviceunid="276c0e871a8e4b80a8364fed5b2c2248"
-                                           unifiedmaterialunid="77cd2a42-9668-45d8-b1b2-0f57c784da39">
-                                    <tr materialunid="77cd2a42-9668-45d8-b1b2-0f57c784da39">
-                                        <td>1</td>
-                                        <td title="二代身份证">二代身份证</td>
-                                        <td title="户口登记,注销,迁移">户口登记,注销,迁移</td>
-                                    </tr>
 
-                                    <input type="hidden" class="unifiedMaterial"
-                                           unifiedserviceunid="7B883B3DBD195C5E7F143EF2DDC110D0"
-                                           unifiedmaterialunid="DBAA55C852CDEDFC3FB8A961FA35421E">
-                                    <tr materialunid="DBAA55C852CDEDFC3FB8A961FA35421E">
-                                        <td>2</td>
-                                        <td title="逝者身份证">逝者身份证</td>
-                                        <td title="惠民殡葬办理">惠民殡葬办理</td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="panel-heading" onclick="showOrhideMaterial(this)" style="overflow: auto;">
-                                <div class="unified_material_name_div">
-                                    <span class="glyphicon glyphicon-duplicate"></span>
-                                    <span title="身故人员的火化证复印件">身故人员的火化证复印件</span>
-                                </div>
-                                <div class="unified_material_btn">
-                                    <a class="btn btn-default btn-sm">删除 </a>
-                                </div>
-                            </div>
-                            <div class="panel-body" style="display:none;">
-                                <table class="table table-bordered">
-                                    <colgroup>
-                                        <col width="10%">
-                                        <col width="45%">
-                                        <col width="45%">
-                                    </colgroup>
-                                    <tbody>
-                                    <tr>
-                                        <td>序号</td>
-                                        <td>材料名称</td>
-                                        <td>所属事项</td>
-                                    </tr>
-                                    </tbody>
-                                    <tbody>
-                                    <input type="hidden" class="unifiedMaterial"
-                                           unifiedserviceunid="0E35E1622BECFC51B4BA94D1ED63B175"
-                                           unifiedmaterialunid="5213B122B4FC690D903C49C4E865C169">
-                                    <tr materialunid="5213B122B4FC690D903C49C4E865C169">
-                                        <td>1</td>
-                                        <td
-                                                title="身故人员的火化证复印件">身故人员的火化证复印件
-                                        </td>
-                                        <td
-                                                title="公益性公墓标准墓穴申请">公益性公墓标准墓穴申请
-                                        </td>
-                                    </tr>
-
-                                    <input type="hidden" class="unifiedMaterial"
-                                           unifiedserviceunid="7B883B3DBD195C5E7F143EF2DDC110D0"
-                                           unifiedmaterialunid="B0F80E9D6AB0F7571D8D8F3DB5260136">
-                                    <tr materialunid="B0F80E9D6AB0F7571D8D8F3DB5260136">
-                                        <td>2</td>
-                                        <td
-                                                title="火化证">火化证
-                                        </td>
-                                        <td
-                                                title="惠民殡葬办理">惠民殡葬办理
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
                         </div>
                     </div>
-                    <div style="display: none;">
+                    <div id="target_div_none" style="display: none;">
                         <div class="not_exists_data">暂无数据</div>
                     </div>
                 </td>
@@ -273,30 +104,219 @@
             </tbody>
         </table>
     </div>
-</body>
 <script th:inline="javascript">
     var moduleUnid = [[${moduleUnid}]];
 </script>
 <script type="text/javascript">
+    var layer;
+    var form;
+    layui.use(['layer','form'], function () {
+        layer = layui.layer;
+        form = layui.form;
+    })
+
     $(function () {
+        initPage();
+    });
+
+    function initPage(){
         //获取初始化数据
         $.ajax({
             type: "get",
             url: "get_materialConfig",
             data: {"moduleUnid":moduleUnid},
-            dataType: "text",
+            dataType: "json",
             success: function (res) {
-                console.log(res);
+                var moduleServices = res.moduleServices;
+                var moduleMaterials = res.moduleMaterials;
+                render_r(moduleServices);//渲染原始材料
+                render_u(moduleMaterials);//渲染原始材料
+
             }
         });
+    }
+
+    //原材料
+    function render_r(moduleServices){
+        if(!!moduleServices && moduleServices.length > 0){
+            var html_service = '';
+            for(var i=0;i<moduleServices.length;i++){
+                html_service +='<div class="panel-heading" onclick="showOrhideMaterial(this)" style="overflow: auto; display: block;">'
+                              +'      <div class="service_name_div">'
+                              +'          <span class="glyphicon glyphicon-list-alt"></span>'
+                              +'          <span title="'+moduleServices[i].service_name+'">'+moduleServices[i].service_name+'</span>'
+                              +'      </div>'
+                              +'</div>';
+                var apasMaterialList = moduleServices[i].apasMaterialList;
+
+                html_service +='<div class="panel-body">'
+                              +'      <input type="hidden" class="info_serviceUnid" value="276c0e871a8e4b80a8364fed5b2c2248">'
+                              +'      <input type="hidden" class="info_serviceName" value="户口登记,注销,迁移">';
+                              +'      <div class="materialList">';
+                for(var j=0;j<apasMaterialList.length;j++){
+                    if(apasMaterialList[j].material_rid == 'null' || apasMaterialList[j].material_rid == null){
+                        html_service +='<div>'
+                                     +'      <label>'
+                                     +'          <input class="material_checkbox" type="checkbox" value="'+apasMaterialList[j].unid+'" name="material_checkbox'+moduleServices[i].serviceid+'" data-name="'+apasMaterialList[j].infoname+'">'
+                                     +'          <input type="hidden" class="info_materialName" value="'+apasMaterialList[j].infoname+'">'
+                                     +'          <span title="'+apasMaterialList[j].infoname+'">'+apasMaterialList[j].infoname+'</span>'
+                                     +'      </label>'
+                                     +'  </div>';
+
+                    }else{
+                        html_service +='<div>'
+									  +'	<label>'
+									  +'		<input class="material_checkbox mapped" style="display:none;" type="checkbox"'
+                                      +'                     value="'+apasMaterialList[j].unid+'"  name="material_checkbox'+moduleServices[i].serviceid+'"'
+                                      +'                     unifiedunid=value="'+apasMaterialList[j].material_rid+'" >'
+									  +'		<span style="color:red;">(已映射)</span>'
+									  +'		<input type="hidden" class="info_materialName" value="'+apasMaterialList[j].infoname+'">'
+									  +'		<span title="'+apasMaterialList[j].infoname+'">'+apasMaterialList[j].infoname+'</span>'
+									  +'	</label>'
+                                      +' </div>';
+                    }
+                }
+                html_service +='</div></div>';
+            }
+            $('#service_panel').empty().append(html_service);
+            $('#materail_div_none').hide();
+        }else{
+            $('#materail_div_none').show();
+        }
+    }
+
+    //统一后材料
+    function render_u(moduleMaterials){
+    console.log(moduleMaterials);
+        if(!!moduleMaterials && moduleMaterials.length > 0){
+            var html_material = '';
+            for(var i=0;i<moduleMaterials.length;i++){
+                var apasMaterial_r = moduleMaterials[i].apasMaterial_r;
+                html_material +='<div class="panel-heading" onclick="showOrhideMaterial(this)" style="overflow: auto;">'
+                               +'     <div class="unified_material_name_div">'
+                               +'         <span class="glyphicon glyphicon-duplicate"></span>'
+                               +'         <span title="'+apasMaterial_r.infoname+'">'+apasMaterial_r.infoname+'</span>'
+                               +'     </div>'
+                               +'     <div class="unified_material_btn">'
+                               +'         <a class="btn btn-default btn-sm" onclick=deleteMaterialConfig("'+moduleMaterials[i].unid+'")>删除 </a>'
+                               +'     </div>'
+                               +' </div>';
+                 html_material +='<div class="panel-body" style="display:none;">'
+                               +'     <table class="table table-bordered">'
+                               +'         <colgroup>'
+                               +'             <col width="10%">'
+                               +'             <col width="45%">'
+                               +'             <col width="45%">'
+                               +'         </colgroup>'
+                               +'         <tbody>'
+                               +'         <tr>'
+                               +'             <td>序号</td>'
+                               +'             <td>材料名称</td>'
+                               +'             <td>所属事项</td>'
+                               +'         </tr>'
+                               +'         </tbody>'
+                               +'         <tbody>';
+                  var apasMaterialList = moduleMaterials[i].apasMaterialList;
+                  for(var j=0;j<apasMaterialList.length;j++){
+                    html_material +='<input type="hidden" class="unifiedMaterial" unifiedserviceunid="'+apasMaterialList[j].serviceid+'" unifiedmaterialunid="'+apasMaterialList[j].unid+'">'
+                                  +'      <tr materialunid="'+apasMaterialList[j].unid+'">'
+                                  +'          <td>'+(j+1)+'</td>'
+                                  +'          <td title="'+apasMaterialList[j].infoname+'">'+apasMaterialList[j].infoname+'</td>'
+                                  +'          <td title="'+apasMaterialList[j].servicename+'">'+apasMaterialList[j].servicename+'</td>'
+                                  +'      </tr>';
+                  }
+                  html_material +='</tbody></table></div>';
+            }
+            html_material +='</div>';
+            $('#unified_material_panel').empty().append(html_material);
+            $('#target_div_none').hide();
+        }else{
+            $('#unified_material_panel').empty();
+            $('#target_div_none').show();
+        }
+    }
+
+    //添加统一材料
+    function add(){
+            var _hasCheckedMaterial;
+            var _hasCheckedMaterials = [];
+        $('.material_checkbox:not(.mapped)').each(function(){
+            if($(this).prop('checked')){
+                _hasCheckedMaterial = new Object();
+                _hasCheckedMaterial.material_unid = $(this).val();
+                _hasCheckedMaterial.material_name = $(this).attr('data-name');
+                _hasCheckedMaterials.push(_hasCheckedMaterial);
+            }
+        });
+        if(_hasCheckedMaterials.length <=1){
+            layer.alert("请选择至少两个原材料");
+        }else{
+            var html_hasCheckedMaterials = '';
+            var materialids_arr = [];
+            for(var i=0;i<_hasCheckedMaterials.length;i++){
+                html_hasCheckedMaterials +='<div class="layui-input-block" style="margin-left: 20px">'
+                                          +'     <input type="radio" lay-filter="checkedmaterial" name="checkedmaterial" data-mid="'+_hasCheckedMaterials[i].material_unid+'" value="'+_hasCheckedMaterials[i].material_name+'" title="'+_hasCheckedMaterials[i].material_name+'">'
+                                          +' </div>';
+                materialids_arr.push(_hasCheckedMaterials[i].material_unid);
+            }
+            $("#choseMaterial-c").empty().append(html_hasCheckedMaterials);
+            form.render('radio');
+            var checked_materialunid = '';
+            form.on('radio(checkedmaterial)', function(data){
+              checked_materialunid = $(data.elem).attr('data-mid');
+            });
+            layer.open({
+                type:1,
+                content: $('#choseMaterial'),
+                area: ['500px', '300px'],
+                btn: ['确定'],
+                yes: function(index, layero){
+                    //checked_materialunid = $('input[name="checkedmaterial"]:checked').attr('data-mid');
+                    if(checked_materialunid == ''){
+                        layer.alert("请选择材料");
+                    }else{
+                         //新增统一材料
+                        $.ajax({
+                            type: "post",
+                            url: "save_materialConfig",
+                            data: {"module_unid":moduleUnid,"materialids":materialids_arr.join(','),"material_rid":checked_materialunid},
+                            dataType: "text",
+                            success: function (res) {
+                                initPage();
+                            }
+                        });
+                        layer.close(index);
+                    }
 
 
-    });
+              }
+            });
+        }
+    }
 
+    function deleteMaterialConfig(unid){
+        $.ajax({
+            type: "post",
+            url: "delete_materialConfig",
+            data: {"unid":unid},
+            dataType: "text",
+            success: function (res) {
+                initPage();
+            }
+        });
+    }
 
     //隐藏或显示材料
     function showOrhideMaterial(obj) {
         $(obj).next(".panel-body").toggle();
     }
 </script>
+</body>
+<div id="choseMaterial" style="display:none;">
+    <form class="layui-form" lay-filter="form-material">
+        <div class="layui-form-item" id="choseMaterial-c">
+
+        </div>
+    </form>
+</div>
 </html>
