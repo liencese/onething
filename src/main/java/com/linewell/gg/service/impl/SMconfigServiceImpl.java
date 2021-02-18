@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,6 +33,9 @@ public class SMconfigServiceImpl implements SMconfigService {
 
     @Autowired
     private ModuleMaterialMapper moduleMaterialMapper;
+
+    @Autowired
+    private ModuleSituationMapper moduleSituationMapper;
 
 
     @Override
@@ -152,6 +156,30 @@ public class SMconfigServiceImpl implements SMconfigService {
     }
 
     @Override
+    public List<ApasMaterial> getApasMaterialByServiceIdUnin(String serviceId, List<ModuleMaterial> moduleMaterials) {
+        List<ApasMaterial> apasMaterials = apasMaterialMapper.getApasMaterialByServiceId(serviceId);
+        List<ApasMaterial> li = new ArrayList<ApasMaterial>();
+
+        //剔除原材料
+
+        if(null == moduleMaterials || moduleMaterials.size() == 0){
+            return apasMaterials;
+        }
+        for (ApasMaterial apasMaterial : apasMaterials) {
+            for (ModuleMaterial moduleMaterial : moduleMaterials) {
+                //不包含原材料或者统一后材料
+                if (!moduleMaterial.getMaterialids().contains(apasMaterial.getUnid())
+                || moduleMaterial.getMaterial_rid().equals(apasMaterial.getUnid())) {
+                    li.add(apasMaterial);
+                }
+            }
+        }
+
+        return li;
+    }
+
+
+    @Override
     public List<ModuleMaterial> getModuleMaterialByModuleUnid(String moduleUnid) {
         return moduleMaterialMapper.getModuleMaterialByModuleUnid(moduleUnid);
     }
@@ -174,5 +202,25 @@ public class SMconfigServiceImpl implements SMconfigService {
     @Override
     public int deleteModuleMaterial(String unid) {
         return moduleMaterialMapper.deleteModuleMaterial(unid);
+    }
+
+    @Override
+    public int addModuleSituation(ModuleSituation moduleSituation) {
+        return moduleSituationMapper.addModuleSituation(moduleSituation);
+    }
+
+    @Override
+    public int updateModuleSituation(ModuleSituation moduleSituation) {
+        return moduleSituationMapper.updateModuleSituation(moduleSituation);
+    }
+
+    @Override
+    public List<ModuleSituation> getAllModuleSituationByModuleUnid(String moduleUnid) {
+        return moduleSituationMapper.getAllModuleSituationByModuleUnid(moduleUnid);
+    }
+
+    @Override
+    public int deleteModuleSituation(String unid) {
+        return moduleSituationMapper.deleteModuleSituation(unid);
     }
 }

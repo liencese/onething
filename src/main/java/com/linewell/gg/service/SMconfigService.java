@@ -31,6 +31,8 @@ public interface SMconfigService {
 
     List<ApasMaterial> getApasMaterialByServiceId(String serviceId,List<ModuleMaterial> moduleMaterials);
 
+    List<ApasMaterial> getApasMaterialByServiceIdUnin(String serviceId,List<ModuleMaterial> moduleMaterials);
+
     List<ModuleMaterial> getModuleMaterialByModuleUnid(String moduleUnid);
 
     List<ApasMaterial> getApasMaterialByUnids(String[] unids);
@@ -40,4 +42,12 @@ public interface SMconfigService {
     int addModuleMaterial(ModuleMaterial moduleMaterial);
 
     int deleteModuleMaterial(String unid);
+
+    int addModuleSituation(ModuleSituation moduleSituation);
+
+    int updateModuleSituation(ModuleSituation moduleSituation);
+
+    List<ModuleSituation> getAllModuleSituationByModuleUnid(String moduleUnid);
+
+    int deleteModuleSituation(String unid);
 }

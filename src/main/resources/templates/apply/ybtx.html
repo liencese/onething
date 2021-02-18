@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一表填写</title>
+    <link rel="stylesheet" href="components/layui/css/layui.css">
+    <link rel="stylesheet" href="css/ybtx.css">
+    <script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="components/layui/layui.js"></script>
+    <style>
+        .word {
+            position: absolute;
+            right: 20px;
+            bottom: 5px;
+            color: #aaa;
+            font-size: 12px;
+            color: red;
+        }
+        .content {
+            padding: 0 40px 20px;
+            border-bottom: 1px solid #e5e5e5;
+            overflow: hidden;
+        }
+        .content .input-item {
+            margin: 20px 0;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #e5e5e5;
+            overflow: hidden;
+        }
+        .form-item li {
+            float: left;
+            width: 50%;
+        }
+        .wid-100{
+            width: 100% !important;
+        }
+        .colorRed{
+            color: red;
+        }
+        #li_legalman {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="top"></div>
+    <script>
+        $("#top").load("top");
+    </script>
+    <div class="yindao">
+        <ul>
+            <li>
+                <image src="image/apply/qingxing.png"></image>
+                <p>1、情景选择</p>
+            </li>
+            <li>
+                <image src="image/apply/jiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/qingdan.png"></image>
+                <p>2、申报清单</p>
+            </li>
+            <li>
+                <image src="image/apply/jiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/yibiaotianxie.png"></image>
+                <p>3、一表填写</p>
+            </li>
+            <li>
+                <image src="image/apply/qianjiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/cailiao.png"></image>
+                <p>4、材料上传</p>
+            </li>
+            <li>
+                <image src="image/apply/qianjiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/gaozhi.png"></image>
+                <p>5、申报告知</p>
+            </li>
+        </ul>
+    </div>
+    <div class="shenbaoqingdan">
+        <div class="yuanjiaotoubu">
+            <p style="margin-left: 66px;margin-top: 32px;">
+                <span th:text="${session.apasUniteModule.moduleName}"
+                      style="font-size: 22px;font-weight: bold;color: #ffffff;"></span>
+                <span style="font-size: 20px;color: #ffffff;">- 一表填写</span>
+            </p>
+        </div>
+        <p style="margin-left: 66px;margin-top: 35px;border-left: 8px solid #515EF2;padding-left: 8px;">
+            <span style="font-size: 22px;font-weight: bold;">申请许可主体信息</span>
+        </p>
+        <form class="layui-form" action="">
+            <input type="hidden" name="unid" th:value="${moduleInstanceUnid}">
+            <input type="hidden" name="module_unid" th:value="${session.apasUniteModule.unid}">
+            <input type="hidden" name="module_name" th:value="${session.apasUniteModule.moduleName}">
+            <div class="content">
+                <div class="input-item">
+                    <p class="float-l" style="margin:8px 20px 0 50px; font-size: 14px;float: left;">请选择办理对象类型：</p>
+                    <input type="radio" name="apply_type" lay-filter="apply_type" value="0" title="个人" checked>
+                    <input type="radio" name="apply_type" lay-filter="apply_type" value="1" title="企业">
+
+                </div>
+                <ul class="form-item">
+                    <li>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="colorRed">*</span><span
+                                    id="applynameLabel">申报人</span>：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="apply_name" th:value="${session.user.name}"
+                                       placeholder="请输入申报人姓名" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="colorRed">*</span><span id="idcardtypelabel">身份证</span>：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="apply_idcard" th:value="${session.user.idcardNum}"
+                                       placeholder="请输入身份证号码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">申报人电话：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="apply_phone" th:value="${session.user.mobile}" laceholder="请申报人电话"
+                                       autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </li>
+                    <li id="li_legalman">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="colorRed">*</span>法定代表人：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="legalman"
+                                       placeholder="请输入法定代表人" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="colorRed">*</span>联系人姓名：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="contact_name" th:value="${session.user.name}"
+                                       placeholder="请输入联系人姓名" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="colorRed">*</span>联系人手机：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="contact_phone" th:value="${session.user.mobile}"
+                                       placeholder="请输入联系人手机" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="colorRed">*</span>联系人身份证：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="contact_idcard" th:value="${session.user.idcardNum}"
+                                       placeholder="请输入联系人身份证号码" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </li>
+                    <li class="wid-100">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">通讯地址：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="address" placeholder="请输入通讯地址"
+                                       autocomplete="off" class="layui-input" style="width: 884px;">
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="wid-100">
+                        <div class="layui-form-item layui-form-text">
+                            <label class="layui-form-label">备注：</label>
+                            <div class="layui-input-block par-text">
+                                    <textarea name="memo" placeholder="请输入不超过200个字符" class="layui-textarea"
+                                              style="width: 884px;" oninput="wordLeg(this);" maxlength="200"
+                                              onpropertychange="if(value.length>200) value=value.substr(0,200)"></textarea>
+                                <div class="word"><span class="text_count">0</span>&nbsp;/&nbsp;<span class="num_count"
+                                                                                                      id="numCount">200</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="layui-form-item">
+                </div>
+            </div>
+            <div class="nextstep">
+                <div class="confirm" lay-submit lay-filter="baseInfo">保存基本信息</div>
+            </div>
+        </form>
+
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/ybtx.js"></script>
+<script>
+    function goto(step) {
+        location.href = step;
+    }
+</script>
+</html>

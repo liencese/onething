@@ -75,7 +75,7 @@ element.style {
 *,
 :after,
 :before {
-    box-sizing: border-box;
+    /*box-sizing: border-box;*/
 }
 
 .tab>li.active:after {
@@ -142,10 +142,11 @@ element.style {
     line-height: 1;
 }
 .select-tab.span4tab li {
-    padding-left: .4rem;
-    padding-right: .4rem;
-    width: 25%;
-    margin: .4rem 0;
+/*    padding-left: .4rem;
+    padding-right: .4rem;*/
+    width: 23%;
+    margin: .4rem;
+    background-color: #f1f2f3;
 }
 .select-tab li {
     float: left;
@@ -166,7 +167,7 @@ element.style {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    background-color: #f1f2f3;
+    /*background-color: #f1f2f3;*/
     color: #000;
 }
 .select-tab li a:hover {

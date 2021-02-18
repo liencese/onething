@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>申报告知</title>
+    <link rel="stylesheet" href="components/layui/css/layui.css">
+    <link rel="stylesheet" href="css/sbgz.css">
+    <script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="components/layui/layui.js"></script>
+</head>
+<body>
+<div class="container">
+    <div id="top"></div>
+    <script>
+        $("#top").load("top");
+    </script>
+    <div class="yindao">
+        <ul>
+            <li>
+                <image src="image/apply/qingxing.png"></image>
+                <p>1、情景选择</p>
+            </li>
+            <li>
+                <image src="image/apply/jiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/qingdan.png"></image>
+                <p>2、申报清单</p>
+            </li>
+            <li>
+                <image src="image/apply/jiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/qianyibiaotianxie.png"></image>
+                <p>3、一表填写</p>
+            </li>
+            <li>
+                <image src="image/apply/jiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/qiancailiao.png"></image>
+                <p>4、材料上传</p>
+            </li>
+            <li>
+                <image src="image/apply/jiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/shengaozhi.png"></image>
+                <p>5、申报告知</p>
+            </li>
+        </ul>
+    </div>
+    <div class="gaozhibg">
+        <div class="yuanjiaotoubu">
+            <p style="margin-left: 66px;margin-top: 32px;">
+                <span th:text="${session.apasUniteModule.moduleName}" style="font-size: 22px;font-weight: bold;color: #ffffff;"></span>
+                <span style="font-size: 20px;color: #ffffff;">-申报告知</span>
+            </p>
+        </div>
+        <div class="shenbao">
+            <div class="neirong">
+                <image src="image/apply/fuhao.png"></image>
+                <span style="margin-left: 10px;font-size: 20px; color: #2057A9;font-family: bold;">恭喜您，申报成功</span>
+            </div>
+        </div>
+        <p style="margin-left: 66px;border-left: 8px solid #515EF2;padding-left: 8px;">
+            <span style="font-size: 22px;font-weight: bold;">基本信息</span>
+        </p>
+        <ul class="toptext">
+            <li>
+                <span>项目编号号:</span>
+                <span th:text="${moduleInstance.unid}"></span>
+            </li>
+            <!--<li>
+                <span>查询密码:</span>
+                <span>247004</span>
+            </li>-->
+            <li>
+                <span>申报时间:</span>
+                <span th:text="${moduleInstance.create_time}"></span>
+            </li>
+        </ul>
+        <table class="news">
+            <tr>
+                <td colspan="2">
+                    项目名称:<span th:text="${moduleInstance.project_name}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>申请人:<span th:text="${moduleInstance.apply_name}"/></td>
+                <td>申请人联系电话:<span th:text="${moduleInstance.apply_phone}"/></td>
+            </tr>
+            <tr>
+                <td>受理单位:<span th:text="${depts}"/></td>
+                <td>承诺期限:<span th:text="${apasUniteModule.promiseDay}"/></td>
+            </tr>
+        </table>
+        <p style="margin-top: 20px;margin-left: 66px;border-left: 8px solid #515EF2;padding-left: 8px;">
+            <span style="font-size: 22px;font-weight: bold;">温馨提示</span>
+        </p>
+        <span style="color: #C11E25;
+            margin-left: 80px;
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+            margin-top: 10px;">1.您可登录服务网或APP查看我的办件进度</span>
+    </div>
+</div>
+</body>
+<script>
+
+    layui.use(['form', 'upload'], function () {
+        var form = layui.form,
+            upload = layui.upload;
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#test1' //绑定元素
+            , url: '/upload/' //上传接口
+            , done: function (res) {
+                //上传完毕回调
+            }
+            , error: function () {
+                //请求异常回调
+            }
+        });
+    });
+
+</script>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="components/layui/css/layui.css">
+    <script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="components/jquery/jquery.ajax.js"></script>
+    <script type="text/javascript" src="components/layui/layui.js"></script>
+    <style>
+        .main {
+            margin: 0 auto;
+            padding: 20px;
+            width: 90%;
+            height: -webkit-fill-available;
+        }
+
+        .left {
+            width: 60%;
+            float: left;
+            padding: 30px 0;
+        }
+
+        .right {
+            width: 38%;
+            float: right;
+        }
+
+        .ques-title p {
+            display: inline;
+        }
+
+        .sp-add {
+            padding: 0 20px;
+            margin-top: 20px;
+        }
+
+        .ques-input {
+            width: 70%;
+            display: inline;
+            margin-left: 15px;
+        }
+
+        .layui-input-block {
+            margin-left: 0;
+        }
+        .sp-save{
+            text-align: center;
+            position: absolute;
+            bottom: 20px;
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="left">
+        <form class="layui-form" lay-filter="form-question" id="form1">
+
+        </form>
+        <div class="sp-add">
+            <button type="button" class="layui-btn layui-btn-sm" onclick="addQuestionTitle()">
+                <i class="layui-icon">&#xe608;</i> 添加问题
+            </button>
+        </div>
+    </div>
+    <div class="right">
+        <form class="layui-form" lay-filter="form-sm" id="form2">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">事项列表</li>
+                    <li>材料列表</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div id="tab-content01" class="layui-tab-item layui-show"></div>
+                    <div id="tab-content02" class="layui-tab-item"></div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="layui-form-item sp-save">
+        <div class="layui-input-block">
+            <button class="layui-btn" onclick="saveSituation()">保存</button>
+        </div>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    var moduleUnid = [[${moduleUnid}]];
+</script>
+<script>
+    var layer;
+    var form;
+    var element;
+    var focusRadio;
+    layui.use(['layer', 'form', 'element'], function () {
+        layer = layui.layer;
+        form = layui.form;
+        element = layui.element;
+        form.render('radio');
+
+        form.on('radio(checkedmaterial)', function (data) {
+            focusRadio = data.elem;
+            var str_sids = $(focusRadio).attr('data-answersids');
+            $("input[name='module_service']").each(function () {
+                if (str_sids.indexOf($(this).attr("data-sid")) > -1) {
+                    $(this).prop("checked", true);
+                } else {
+                    $(this).prop("checked", false);
+                }
+            });
+
+            var str_mids = $(focusRadio).attr('data-answermids');
+            $("input[name='module_material']").each(function () {
+                if (str_mids.indexOf($(this).attr("data-mid")) > -1) {
+                    $(this).prop("checked", true);
+                } else {
+                    $(this).prop("checked", false);
+                }
+            });
+
+            form.render('checkbox');
+
+        });
+
+        //全选
+        form.on('checkbox(allChooseService)', function (data) {
+            if(focusRadio == undefined){
+                layer.alert("请选择答案")
+                return false;
+            }
+
+            $("input[name='module_service']").each(function () {
+                this.checked = data.elem.checked;
+                if(this.checked){
+                    var answerSids = $(focusRadio).attr("data-answersids");
+                    var arr_answerSids = answerSids == "" ? [] : answerSids.split(",");
+                    if (!!$(this).attr("data-sid")) {
+                        arr_answerSids.push($(this).attr("data-sid"));
+                        $(focusRadio).attr("data-answersids", arr_answerSids.join(","))
+                    }
+                }else{
+                    var answerSids = $(focusRadio).attr("data-answersids");
+                    var arr_answerSids = answerSids == "" ? [] : answerSids.split(",");
+                    if (!!$(this).attr("data-sid")) {
+                        arr_answerSids.remove($(this).attr("data-sid"));
+                        $(focusRadio).attr("data-answersids", arr_answerSids.join(","))
+                    }
+                }
+
+            });
+            form.render('checkbox');
+        });
+
+        form.on('checkbox(allChooseMaterial)', function (data) {
+            if(focusRadio == undefined){
+                layer.alert("请选择答案")
+                return false;
+            }
+
+            $("input[name='module_material']").each(function () {
+                this.checked = data.elem.checked;
+                if(this.checked){
+                    var answerMids = $(focusRadio).attr("data-answermids");
+                    var arr_answerMids = answerMids == "" ? [] : answerMids.split(",");
+                    if (!!$(this).attr("data-mid")) {
+                        arr_answerMids.push($(this).attr("data-mid"));
+                        $(focusRadio).attr("data-answermids", arr_answerMids.join(","))
+                    }
+                }else{
+                    var answerMids = $(focusRadio).attr("data-answermids");
+                    var arr_answerMids = answerMids == "" ? [] : answerMids.split(",");
+                    if (!!$(this).attr("data-mid")) {
+                        arr_answerMids.remove($(this).attr("data-mid"));
+                        $(focusRadio).attr("data-answermids", arr_answerMids.join(","))
+                    }
+                }
+            });
+            form.render('checkbox');
+        });
+
+        form.on('checkbox(checkedSM)', function (data) {
+            if(focusRadio == undefined){
+                layer.alert("请选择答案")
+                return false;
+            }
+            if (data.elem.checked) {
+                var answerSids = $(focusRadio).attr("data-answersids");
+                var arr_answerSids = answerSids == "" ? [] : answerSids.split(",");
+                if (!!$(data.elem).attr("data-sid")) {
+                    arr_answerSids.push($(data.elem).attr("data-sid"));
+                    $(focusRadio).attr("data-answersids", arr_answerSids.join(","))
+                }
+
+                var answerMids = $(focusRadio).attr("data-answermids");
+                var arr_answerMids = answerMids == "" ? [] : answerMids.split(",");
+                if (!!$(data.elem).attr("data-mid")) {
+                    arr_answerMids.push($(data.elem).attr("data-mid"));
+                    $(focusRadio).attr("data-answermids", arr_answerMids.join(","))
+                }
+
+            }else{
+                var answerSids = $(focusRadio).attr("data-answersids");
+                var arr_answerSids = answerSids == "" ? [] : answerSids.split(",");
+                if (!!$(data.elem).attr("data-sid")) {
+                    arr_answerSids.remove($(data.elem).attr("data-sid"));
+                    $(focusRadio).attr("data-answersids", arr_answerSids.join(","))
+                }
+
+                var answerMids = $(focusRadio).attr("data-answermids");
+                var arr_answerMids = answerMids == "" ? [] : answerMids.split(",");
+                if (!!$(data.elem).attr("data-mid")) {
+                    arr_answerMids.remove($(data.elem).attr("data-mid"));
+                    $(focusRadio).attr("data-answermids", arr_answerMids.join(","))
+                }
+            }
+
+        });
+
+
+
+
+    })
+
+    $(function () {
+        renderQuestion();
+        renderServiceMaterials();
+    })
+
+    function renderQuestion() {
+        $.ajax({
+            type: "get",
+            url: "get_situationConfig",
+            data: {"moduleUnid": moduleUnid},
+            dataType: "json",
+            success: function (data) {
+                if (!!data) {
+                    $("#form1").empty()
+                    for (var i = 0; i < data.length; i++) {
+                        $("#form1").append(addQuestion(data[i]));
+                    }
+                    //form.render('radio');
+                } else {
+                    layer.alert("保存失败");
+                }
+            }
+        });
+    }
+
+
+    var question_title_temp = '<div class="sp-contain" id="question_temp">' +
+        '	<div class="ques-title">' +
+        '		<input type="text" name="title" placeholder="请输入标题" class="layui-input ques-input">' +
+        '		<button type="button" class="layui-btn layui-btn-sm" onclick="saveQuestion()">确定</button>' +
+        '		<button type="button" class="layui-btn layui-btn-sm" onclick="cancleQuestion()">取消</button>' +
+        '	</div>' +
+        '</div>'
+
+    //添加问题描述
+    function addQuestionTitle() {
+        $("#question_temp").remove();
+        $("#form1").append(question_title_temp);
+    }
+
+    //保存问题
+    function saveQuestion() {
+        var question = $('#question_temp input').val();
+        if (!!question) {
+            var obj = new Object();
+            obj.question = question;
+            obj.moduleUnid = moduleUnid;
+            obj.answer1 = "是";
+            obj.answer2 = "否";
+            var index = $(".ques-title-p").length + 1;
+            obj.sortid = index;
+
+            $.ajax({
+                type: "post",
+                url: "save_situationConfig",
+                data: obj,
+                dataType: "text",
+                success: function (res) {
+                    if (res != 'error') {
+                        layer.alert("保存成功");
+                        obj.unid = res;
+                        var question_html = addQuestion(obj);
+                        $("#form1").append(question_html);
+                        form.render('radio');
+                        cancleQuestion();
+                    } else {
+                        layer.alert("保存失败");
+                    }
+                }
+            });
+        } else {
+            layer.alert("请输入问题描述");
+        }
+    }
+
+    function deleteQuestion(unid, obj) {
+        $.ajax({
+            type: "post",
+            url: "delete_situationConfig",
+            data: {"unid": unid},
+            dataType: "text",
+            success: function (res) {
+                if (res > 0) {
+                    $(obj).parent().parent().remove();
+                } else {
+                    layer.alert("删除失败");
+                }
+            }
+        });
+    }
+
+    function cancleQuestion() {
+        $("#question_temp").remove();
+    }
+
+    function addQuestion(obj) {
+        var str = obj.sortid + '、' + obj.question;
+        var question_temp = '<div class="sp-contain">' +
+            '	<div class="ques-title">' +
+            '		<p class="ques-title-p">' + str + '</p>' +
+            '		<button type="button" style="margin-left: 10px;" onclick=deleteQuestion("' + obj.unid + '",this) class="layui-btn layui-btn-danger  layui-btn-xs">' +
+            '			<i class="layui-icon">&#xe640;</i>' +
+            '		</button>' +
+            '	</div>' +
+            '	<div class="layui-form-item choseMaterial-c" data-unid="'+obj.unid+'">' +
+            '		<div class="layui-input-block" style="margin-left: 20px">' +
+            '			<input type="radio" lay-filter="checkedmaterial" name="situation_' + obj.unid + '" title="是" value="是" data-answersids="' + transtNull(obj.answer1Sids) + '" data-answermids="' + transtNull(obj.answer1Mids) + '">' +
+            '			<input type="radio" lay-filter="checkedmaterial" name="situation_' + obj.unid + '" title="否" value="否" data-answersids="' + transtNull(obj.answer2Sids) + '" data-answermids="' + transtNull(obj.answer2Mids) + '">' +
+            '		</div>' +
+            '	</div>' +
+            '</div>';
+        return question_temp;
+    }
+
+    function transtNull(s){
+        if(s == null || s == 'null' || s == 'undefined' || s == undefined){
+            s = '';
+        }
+        return s;
+    }
+
+    function renderServiceMaterials() {
+        $.ajax({
+            type: "get",
+            url: "get_moduleServicesMaterials",
+            data: {"moduleUnid": moduleUnid},
+            dataType: "json",
+            success: function (data) {
+                if (!!data) {
+                    var html_service = '<div class="layui-input-block"><input type="checkbox" class="checkboxAll" lay-skin="primary"  lay-filter="allChooseService" title="全选/取消"></div>';
+                    var html_materials = '<div class="layui-input-block"><input type="checkbox" class="checkboxAll" lay-skin="primary"  lay-filter="allChooseMaterial" title="全选/取消"></div>';
+                    var services = data.moduleServices;
+                    var materials = data.moduleMaterials;
+                    for (var i = 0; i < services.length; i++) {
+                        html_service += '<div class="layui-input-block">'
+                                    + '   <input type="checkbox" name="module_service" lay-filter="checkedSM" data-sid="' + services[i].serviceid + '" lay-skin="primary" title="' + services[i].service_name + '">'
+                                    + '</div>';
+                    }
+                    for (var j = 0; j < materials.length; j++) {
+                        html_materials += '<div class="layui-input-block">'
+                                        + '   <input type="checkbox" name="module_material" lay-filter="checkedSM" data-mid="' + materials[j].unid + '" lay-skin="primary" title="' + materials[j].infoname + '">'
+                                        + '</div>';
+                    }
+
+                    $("#tab-content01").empty().append(html_service);
+                    $("#tab-content02").empty().append(html_materials);
+
+
+                } else {
+                    layer.alert("加载事项材料失败");
+                }
+            }
+        });
+    }
+
+    function saveSituation(){
+        var param = [];
+        var obj;
+        $(".choseMaterial-c").each(function(){
+            obj = new Object();
+            obj.unid = $(this).attr("data-unid");
+            obj.moduleUnid = moduleUnid;
+            obj.answer1Sids = $(this).find("input").eq(0).attr("data-answersids");//是 关联事项
+            obj.answer1Mids = $(this).find("input").eq(0).attr("data-answermids");//是 关联材料
+            obj.answer2Sids = $(this).find("input").eq(1).attr("data-answersids");//否 关联事项
+            obj.answer2Mids = $(this).find("input").eq(1).attr("data-answermids");//否 关联材料
+            param.push(obj);
+        });
+        $.ajax({
+            type: "post",
+            url: "update_situationConfig",
+            data: {"param":JSON.stringify(param)},
+            dataType: "text",
+            success: function (res) {
+                if (res > 0) {
+                    layer.alert("保存成功");
+                } else {
+                    layer.alert("保存失败");
+                }
+            }
+        });
+
+
+    }
+
+    Array.prototype.indexOf = function(val) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == val) return i;
+        }
+        return -1;
+    };
+    Array.prototype.remove = function(val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
+</script>
+</html>

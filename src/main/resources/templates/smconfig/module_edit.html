@@ -5,9 +5,18 @@
     <title>Title</title>
     <link rel="stylesheet" href="components/layui/css/layui.css">
     <style>
-        .main{
+        .main {
             margin: 0 auto;
             padding: 20px;
+        }
+
+        .layui-upload-img {
+            width: 300px;
+            height: 250px;
+        }
+
+        .layui-input {
+            width: 200px;
         }
     </style>
 </head>
@@ -52,7 +61,8 @@
             <div class="layui-inline">
                 <label class="layui-form-label">承诺天数</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="promiseDay" lay-verify="required|number" autocomplete="off" class="layui-input">
+                    <input type="text" name="promiseDay" lay-verify="required|number" autocomplete="off"
+                           class="layui-input">
                 </div>
             </div>
         </div>
@@ -67,15 +77,28 @@
             <div class="layui-inline">
                 <label class="layui-form-label">去现场次数</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="sceneNum" lay-verify="required|number" autocomplete="off" class="layui-input">
+                    <input type="text" name="sceneNum" lay-verify="required|number" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline" style="width: 100%">
+                <label class="layui-form-label">流程图(png|jpeg|jpg)</label>
+                <div class="layui-input-inline" style="width: 530px;">
+                    <button type="button" class="layui-btn" id="uploadPic">上传图片</button>
+                    <input style="width: 350px;float: left;background: #cccccc" type="text" id="modulePic"
+                           name="modulePic" lay-verify="required" class="layui-input" readonly>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="review">
+                        <p id="demoText"></p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit1">保存</button>
-            </div>
+        <div class="layui-form-item" style="text-align: center">
+            <button type="submit" class="layui-btn" lay-submit="" lay-filter="submit1">保存</button>
         </div>
     </form>
 </div>
@@ -87,12 +110,13 @@
     var apasUniteModule = [[${apasUniteModule}]];
 </script>
 <script>
-    layui.use(['form', 'layedit'], function () {
+    layui.use(['form', 'layedit', 'upload'], function () {
         var form = layui.form
             , layer = layui.layer
             , layedit = layui.layedit
+            , upload = layui.upload;
 
-        if(!!apasUniteModule){
+        if (!!apasUniteModule) {
             var _isPublish = apasUniteModule.isPublish == 'Y' ? true : false;
             form.val('form1', {
                 "moduleName": apasUniteModule.moduleName
@@ -101,8 +125,43 @@
                 , "promiseDay": apasUniteModule.promiseDay
                 , "isPublish": _isPublish
                 , "sceneNum": apasUniteModule.sceneNum
+                , "modulePic": apasUniteModule.modulePic
             });
+            $('#review').attr('src', "image/flow/" + apasUniteModule.modulePic);
         }
+
+        var uploadInst = upload.render({
+            elem: '#uploadPic'
+            , url: 'uploadPic'
+            , exts: 'png|jpeg|jpg'// 设置允许上传的格式
+            , accept: 'file'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#review').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                console.log(res);
+                if (res.code > 0) {
+                    layer.msg('上传成功');
+                    $("#modulePic").val(res.fileName);
+
+                }
+
+                //上传成功
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+
+
         //自定义验证规则
         form.verify({
             title: function (value) {
@@ -128,12 +187,12 @@
                 type: "post",
                 url: "save_moduleConfig",
                 data: PapasUniteModule,
-                dataType:"text",
+                dataType: "text",
                 success: function (res) {
                     if (res > 0) {
                         layer.alert("保存成功");
                         parent.layui.table.reload('grid');
-                    }else{
+                    } else {
                         layer.alert("保存失败");
                     }
                 }

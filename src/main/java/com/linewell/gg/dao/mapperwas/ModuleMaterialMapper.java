@@ -21,4 +21,7 @@ public interface ModuleMaterialMapper {
     @Delete("delete from module_material where unid = #{unid}")
     int deleteModuleMaterial(String unid);
 
+    @Select("select * from module_material where module_unid = #{moduleUnid} and LOCATE(#{materialid},materialids)")
+    ModuleMaterial getModuleMaterialByModuleUnidMid(String moduleUnid,String materialid);
+
 }

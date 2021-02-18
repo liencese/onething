@@ -30,11 +30,11 @@ public interface ApasUniteModuleMapper {
     @Select("select * from apas_unite_module where unid = #{moduleUnid}")
     ApasUniteModule getApasUniteModuleByUnid(String moduleUnid);
 
-    @Update("update apas_unite_module set moduleName = #{moduleName},moduleType=#{moduleType},moduleClassTag=#{moduleClassTag},promiseDay=#{promiseDay},isPublish=#{isPublish},sceneNum=#{sceneNum},updateTime = #{updateTime} where unid = #{unid}")
+    @Update("update apas_unite_module set moduleName = #{moduleName},moduleType=#{moduleType},moduleClassTag=#{moduleClassTag},promiseDay=#{promiseDay},isPublish=#{isPublish},sceneNum=#{sceneNum},updateTime = #{updateTime},modulePic = #{modulePic} where unid = #{unid}")
     int updateApasUniteModule(ApasUniteModule apasUniteModule);
 
-    @Insert("insert into apas_unite_module (unid,moduleName,moduleType,moduleClassTag,promiseDay,isPublish,sceneNum,createTime)"
-            +" values(#{unid},#{moduleName},#{moduleType},#{moduleClassTag},#{promiseDay},#{isPublish},#{sceneNum},#{createTime})")
+    @Insert("insert into apas_unite_module (unid,moduleName,moduleType,moduleClassTag,promiseDay,isPublish,sceneNum,createTime,modulePic)"
+            +" values(#{unid},#{moduleName},#{moduleType},#{moduleClassTag},#{promiseDay},#{isPublish},#{sceneNum},#{createTime},#{modulePic})")
     int addApasUniteModule(ApasUniteModule apasUniteModule);
 
     @Delete("delete from apas_unite_module where unid = #{unid}")

@@ -249,6 +249,28 @@ public class ApasService implements Serializable {
 	/** 申报材料 */
 	private List<ApasMaterial> materialList;
 
+	private String dept_ql_reg_no;
+
+	private int promiseDay;
+
+	public int getPromiseDay() {
+		return promiseDay;
+	}
+
+	public void setPromiseDay(int promiseDay) {
+		this.promiseDay = promiseDay;
+	}
+
+	public String getDept_ql_reg_no() {
+		return dept_ql_reg_no;
+	}
+
+	public void setDept_ql_reg_no(String dept_ql_reg_no) {
+		this.dept_ql_reg_no = dept_ql_reg_no;
+	}
+
+
+
 	public String getUnid() {
 		return unid;
 	}

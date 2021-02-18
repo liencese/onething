@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>材料上传</title>
+    <link rel="stylesheet" href="components/layui/css/layui.css">
+    <link rel="stylesheet" href="css/clsc.css">
+    <script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="components/jquery/jquery.form.js"></script>
+    <script type="text/javascript" src="components/layui/layui.js"></script>
+    <style>
+        .sp-div-img{
+            height: 30px;
+            line-height: 30px;
+            position: relative;
+            margin-right: 10px;
+            clear: both;
+        }
+        .icon-delete{
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            float: right;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div id="top"></div>
+    <script>
+        $("#top").load("top");
+    </script>
+    <div class="yindao">
+        <ul>
+            <li>
+                <image src="image/apply/qingxing.png"></image>
+                <p>1、情景选择</p>
+            </li>
+            <li>
+                <image src="image/apply/jiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/qingdan.png"></image>
+                <p>2、申报清单</p>
+            </li>
+            <li>
+                <image src="image/apply/jiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/qianyibiaotianxie.png"></image>
+                <p>3、一表填写</p>
+            </li>
+            <li>
+                <image src="image/apply/jiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/shencailiao.png"></image>
+                <p>4、材料上传</p>
+            </li>
+            <li>
+                <image src="image/apply/qianjiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/gaozhi.png"></image>
+                <p>5、申报告知</p>
+            </li>
+        </ul>
+    </div>
+    <div class="shenbaoqingdan">
+        <div class="yuanjiaotoubu">
+            <p style="margin-left: 66px;margin-top: 32px;">
+                <span th:text="${session.apasUniteModule.moduleName}" style="font-size: 22px;font-weight: bold;color: #ffffff;"></span>
+                <span style="font-size: 20px;color: #ffffff;">-材料上传</span>
+            </p>
+        </div>
+        <div style="height: 30px;line-height: 30px;margin-left: 66px;margin-top: 10px;border-left: 8px solid #515EF2;padding-left: 8px;">
+            <span style="float: left;font-size: 22px;font-weight: bold;">材料清单</span>
+            <div style="margin-left: 100px;">
+                <image src="image/apply/tanhao.png"></image>
+                <span style="color: #C11E25;">请根据情况上传如下材料信息</span>
+            </div>
+        </div>
+        <form id="saFrom" action="saveAttrStartUp" method="post">
+            <input type="hidden" name="moduleInstanceUnid" th:value="${moduleInstanceUnid}"/>
+            <table class="uploadtable">
+                <tr th:each="apasMaterial,memberStat:${apasMaterials}">
+                    <td class="head" th:text="${memberStat.index + 1} + '、' +${apasMaterial.infoname}"></td>
+                    <td class="content">
+                        <input type="hidden" th:attr="name=${apasMaterial.serviceid} + '_materialUnid'"
+                               th:value="${apasMaterial.unid}"/>
+                        <input type="hidden" th:attr="name='_unid'"
+                               th:value="${apasMaterial.unid}"/>
+                        <input type="hidden" th:attr="name=${apasMaterial.unid} + '_name'"
+                               th:value="${apasMaterial.infoname}"/>
+                        <input type="hidden" th:attr="name=${apasMaterial.unid} + '_savestate'" th:value="upload"/>
+                        <button type="button" class="layui-btn uploadbtn"><i class="layui-icon"></i>点击上传</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <div class="nextstep">
+            <div class="confirm" onclick="saveAttrStartUp()">发起</div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="js/clsc.js"></script>
+</html>

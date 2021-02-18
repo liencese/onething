@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="MySql">
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!--注释-->
+        <commentGenerator>
+            <!-- 将数据库中表的字段描述信息添加到注释 -->
+            <property name="addRemarkComments" value="true"/>
+            <!-- 注释里不添加日期 -->
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+        <jdbcConnection
+                driverClass="com.mysql.jdbc.Driver"
+                connectionURL="jdbc:mysql://127.0.0.1:3306/was?useUnicode=true&amp;characterEncoding=utf8&amp;nullCatalogMeansCurrent=true"
+                userId="root"
+                password="root2017"/>
+        <javaModelGenerator targetPackage="com.linewell.gg.dao.mapperwas.module"
+                            targetProject="src/main/java"></javaModelGenerator>
+        <!--<table tableName="module_situation">
+            <columnOverride column="question" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="answer1_sids" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="answer2_sids" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="answer1_mids" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="answer2_mids" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        </table>-->
+        <!--<table tableName="apas_info">
+            <columnOverride column="SERVICENAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="PROJECTNAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="APPLYNAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="ADDRESS" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="CONTACTMAN" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="FORMID" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="APPLYFROM" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="MEMO" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="UNITE_NOTICE_CODE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="UNITE_PROJECT_INFO" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="UNITE_OPINION_CONTENT" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="UNITE_OPINION_USERNAME" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="ACCEPT_OPINION" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="IDCARD_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="CONTACT_IDCARD_TYPE" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="receiveask_deptid" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="receiveask_userid" javaType="java.lang.String" jdbcType="VARCHAR"/>
+
+        </table>-->
+       <!-- <table tableName="module_instance">
+        </table>-->
+
+        <table tableName="apas_attr">
+            <columnOverride column="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+            <columnOverride column="memo" javaType="java.lang.String" jdbcType="VARCHAR"/>
+
+        </table>
+
+
+    </context>
+</generatorConfiguration>

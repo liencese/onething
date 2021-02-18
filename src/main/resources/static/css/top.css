@@ -1,0 +1,279 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+.header {
+    background-color: #fff;
+    border-bottom: 4px solid #4178be;
+}
+
+.header .container {
+    width: 1200px;
+    margin: auto;
+    position: relative;
+
+}
+
+.header .logo {
+    float: left;
+    margin-top: 15px;
+    margin-bottom: 15px
+}
+
+.header .container:after {
+    content: '';
+    display: table;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+}
+
+.header ul {
+    display: block
+}
+
+.header ul:after {
+    content: '';
+    display: table;
+    height: 0;
+    overflow: hidden;
+    clear: both;
+}
+
+.header ul li {
+    float: left;
+    list-style: none;
+}
+
+.header ul li a {
+    display: block;
+    float: left;
+    height: 40px;
+    position: relative;
+    font-size: 17px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    padding: 0 30px;
+    margin-right: 10px;
+    background-color: #4178be;
+    color: #fff;
+}
+
+.clear {
+    clear: both
+}
+
+/*站点*/
+
+.top_site {
+    width: auto;
+    height: 28px;
+    position: absolute;
+    top: 25px;
+    left: 50%;
+    margin-left: -310px;
+    z-index: 10;
+}
+
+.site_local {
+    width: 170px;
+    height: 28px;
+    padding-left: 25px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: url(http://www.jszwfw.gov.cn/picture/2/1610181856192705850.png) left no-repeat;
+    font-size: 17px;
+    cursor: pointer;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.site_fill {
+    display: none;
+    width: 250px;
+    height: 30px;
+    position: absolute;
+    top: 22px;
+    left: -80px;
+}
+
+.site_list_main {
+    display: none;
+    width: 1014px;
+    height: auto;
+    padding-top: 25px;
+    padding-bottom: 15px;
+    position: absolute;
+    top: 35px;
+    left: -296px;
+}
+
+.site_r_bg1 {
+    width: 1014px;
+    height: 25px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background: url(http://www.jszwfw.gov.cn/picture/2/1611041526409869386.png) top no-repeat;
+}
+
+.site_r_bg2 {
+    width: 1014px;
+    height: auto;
+    position: absolute;
+    top: 25px;
+    bottom: 10px;
+    background: url(http://www.jszwfw.gov.cn/picture/2/1611041526410827126.png) top repeat-y;
+}
+
+.site_r_bg3 {
+    width: 1014px;
+    height: 10px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background: url(http://www.jszwfw.gov.cn/picture/2/1611041526411369568.png) bottom no-repeat;
+}
+
+.top_site:hover .site_fill {
+    display: block;
+}
+
+/*.top_site:hover .site_list_main{ display:block;}*/
+
+.site_r1,
+.site_r2,
+.site_r3,
+.site_r4{
+    width: 980px;
+    height: auto;
+    min-height: 45px;
+    margin: 0 auto;
+    padding: 10px 0px 10px 95px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 1px dashed #d4d5d9;
+}
+
+.site_r3 {
+    border: none;
+}
+
+.site_list_main .c1 {
+    width: 95px;
+    height: 35px;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+    font-size: 15px;
+    line-height: 35px;
+    color: #4178be;
+    text-align: right;
+}
+
+.site_list_main .c2 {
+    height: auto;
+    overflow: hidden;
+}
+
+.site_list_main .c2 a {
+    display: block;
+    float: left;
+    padding: 0px 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    font-size: 15px;
+    line-height: 35px;
+}
+
+.site_list_main a.local_site_aOn {
+    background-color: #f5aa4c;
+    color: #fff;
+}
+
+.site_list_main a:hover,
+.site_list_main a.site_aOn {
+    background-color: #4178be;
+    color: #fff;
+}
+
+.c_list3 {
+    display: none;
+    height: auto;
+    overflow: hidden;
+}
+
+.local_webname {
+    display: none;
+}
+
+/*内容 */
+
+.main {
+    background: #edf7ff;
+    margin-top: 60px;
+}
+
+.main-other {
+    background: #fff;
+}
+
+.main .container {
+    width: 1200px;
+    margin: 0 auto 30px auto;
+    overflow: hidden;
+    -webkit-box-sizing: none;
+    box-sizing: none;
+}
+
+.main .container .title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 30px auto;
+}
+
+.list li {
+    list-style: none;
+}
+
+.list li a {
+
+    background: url(images/right_tit_bg2.png) left no-repeat;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 20px;
+
+}
+
+.list li a em {
+    font-size: 17px;
+    line-height: 48px;
+    color: #4178be;
+    font-style: normal
+}
+
+
+.txtcont p {
+    padding-bottom: 15px;
+    font-size: 18px;
+    line-height: 36px;
+    color: #333;
+    text-indent: 36px
+}
+.mx-table{width:100%; border:1px solid #99cdff;  border-collapse: collapse;border-spacing: 0; background:#fff;}
+.mx-table th,.mx-table td{ padding:10px; text-align: center;border:1px solid #99cdff}
+.mx-table th{ font-weight:500; background:#edf7ff;}
+
+.nextstep>div{
+    cursor: pointer;
+}

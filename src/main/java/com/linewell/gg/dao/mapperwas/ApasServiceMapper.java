@@ -16,4 +16,16 @@ public interface ApasServiceMapper {
             +"</when>"
             +" limit 50</script>"})
     List<ApasService> getApasServiceByNameOrCode(String param);
+
+    @Select("<script>"
+            + "select * from apas_service where infoprojid in "
+            + "<foreach item='item' index='index' collection='infoprojids' open='(' separator=',' close=')'>"
+            + "#{item}"
+            + "</foreach>"
+            + "</script>")
+    List<ApasService> getApasServiceByInfoprojids(String[] infoprojids);
+
+    @Select("select * from  apas_service where showtype = 2 and infoprojid = #{infoprojid}")
+    ApasService getApasServiceByInfoprojid(String infoProjid);
+
 }

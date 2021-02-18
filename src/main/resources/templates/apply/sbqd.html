@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>申报清单</title>
+    <link rel="stylesheet" href="css/sbqd.css">
+    <script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div id="top"></div>
+    <script>
+        $("#top").load("top");
+    </script>
+    <div class="yindao">
+        <ul>
+            <li>
+                <image src="image/apply/qingxing.png"></image>
+                <p>1、情景选择</p>
+            </li>
+            <li>
+                <image src="image/apply/jiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/shenbao.png"></image>
+                <p>2、申报清单</p>
+            </li>
+            <li>
+                <image src="image/apply/qianjiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/qianyibiaotianxie.png"></image>
+                <p>3、一表填写</p>
+            </li>
+            <li>
+                <image src="image/apply/qianjiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/cailiao.png"></image>
+                <p>4、材料上传</p>
+            </li>
+            <li>
+                <image src="image/apply/qianjiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/gaozhi.png"></image>
+                <p>5、申报告知</p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="shenbaoqingdan">
+        <div class="yuanjiaotoubu">
+            <p style="margin-left: 66px;margin-top: 32px;">
+                <span th:text="${session.apasUniteModule.moduleName}"
+                      style="font-size: 22px;font-weight: bold;color: #ffffff;"></span>
+                <span style="font-size: 20px;color: #ffffff;">-申报清单</span>
+            </p>
+        </div>
+        <div class="shenbaobeijing">
+            <p style="margin-left: 66px;margin-top: 35px;border-left: 8px solid #515EF2;padding-left: 8px;">
+                <span style="font-size: 22px;font-weight: bold;">情景选择</span>
+            </p>
+            <ul>
+                <li th:each="moduleSituation,memberStat:${arr_situation}">
+                    <span th:text="${moduleSituation.question}"></span>
+                    <span th:text="${moduleSituation.answer}"></span>
+                </li>
+            </ul>
+            <p style="margin-left: 66px;margin-top: 35px;border-left: 8px solid #515EF2;padding-left: 8px;">
+                <span style="font-size: 22px;font-weight: bold;">事项清单</span>
+            </p>
+            <ul>
+                <li th:each="apasService,memberStat:${apasServices}">
+                    <span th:text="${memberStat.index + 1} + '、' + ${apasService.serviceName}"></span>
+                </li>
+            </ul>
+            <p style="margin-left: 66px;margin-top: 35px;border-left: 8px solid #515EF2;padding-left: 8px;">
+                <span style="font-size: 22px;font-weight: bold;">需备材料</span>
+            </p>
+            <ul>
+                <li th:each="apasMaterial,memberStat:${apasMaterials}">
+                        <span th:text="${memberStat.index + 1} + '、' + ${apasMaterial.infoname}"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="nextstep">
+            <div class="confirm" onclick="goto('ybtx')">确定</div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="moduleInstanceUnid" th:value="${moduleInstanceUnid}"/>
+</body>
+<script>
+    function goto(step) {
+        var moduleInstanceUnid = $("#moduleInstanceUnid").val();
+        location.href = step + "?moduleInstanceUnid="+moduleInstanceUnid;
+    }
+</script>
+</html>

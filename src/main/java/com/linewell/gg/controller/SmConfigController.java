@@ -12,21 +12,68 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 @Controller
 public class SmConfigController {
 
     @Autowired
     private SMconfigService sMconfigService;
+
+    /**
+     * 登录页面
+     * @param model
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/module_login")
+    public String module_login(Model model, HttpServletRequest request) {
+
+        return "login";
+    }
+
+    /**
+     * 退出登录
+     * @param request
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/module_login_out")
+    public String module_login_out(HttpServletRequest request, HttpSession session) {
+        session.removeAttribute("Puser");
+        return "login";
+    }
+
+    /**
+     * 登录
+     * @param request
+     * @param session
+     * @return
+     */
+    @RequestMapping(value = "/module_index")
+    public String module_index(HttpServletRequest request, HttpSession session) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        User user = (User) session.getAttribute("Puser");
+        if (null == user) {
+            if ("admin".equals(username) && "gg123".equals(password)) {
+                user = new User();
+                user.setUsername(username);
+                user.setPassword(password);
+                session.setAttribute("Puser", user);
+            } else {
+                return "login";
+            }
+        }
+        return "config";
+    }
 
     @RequestMapping(value = "/module_config")
     public String module_config(Model model, HttpServletRequest request) {
@@ -53,7 +100,7 @@ public class SmConfigController {
 
     }
 
-    @RequestMapping("module_edit")
+    @RequestMapping("/module_edit")
     public String module_edit(Model model, @RequestParam(value = "moduleUnid", required = false) String moduleUnid) {
         ApasUniteModule apasUniteModule = sMconfigService.getApasUniteModuleByUnid(moduleUnid);
         model.addAttribute("apasUniteModule", apasUniteModule);
@@ -171,7 +218,6 @@ public class SmConfigController {
         //原材料
         for (ModuleService moduleService : moduleServices) {
             moduleService.setApasMaterialList(sMconfigService.getApasMaterialByServiceId(moduleService.getServiceid(), moduleMaterials));
-
         }
 
         Map<String, Object> map = new HashMap<String, Object>();
@@ -196,4 +242,75 @@ public class SmConfigController {
         int r = sMconfigService.deleteModuleMaterial(unid);
         return r;
     }
+
+    @RequestMapping(value = "/situation_config")
+    public String situation_config(Model model, HttpServletRequest request) {
+        String moduleUnid = request.getParameter("moduleUnid");
+        model.addAttribute("moduleUnid", moduleUnid);
+        return "smconfig/situation_config";
+    }
+
+    @RequestMapping(value = "/save_situationConfig")
+    @ResponseBody
+    @Transactional
+    public String save_situationConfig(ModuleSituation moduleSituation) {
+        String unid = UuidUtil.getUuid();
+        moduleSituation.setUnid(unid);
+        moduleSituation.setCreatetime(DateUtil.formatDateTime(new Date()));
+        int r = sMconfigService.addModuleSituation(moduleSituation);
+        return r > 0 ? unid : "error";
+    }
+
+    @RequestMapping(value = "/update_situationConfig")
+    @ResponseBody
+    @Transactional
+    public int update_situationConfig(String param) {
+        int r = 0;
+        JSONArray arr = JSONArray.parseArray(param);
+        ModuleSituation moduleSituation = null;
+        for (int i = 0; i < arr.size(); i++) {
+            JSONObject o = (JSONObject) arr.get(i);
+            moduleSituation = JSON.toJavaObject(o, ModuleSituation.class);
+            r = sMconfigService.updateModuleSituation(moduleSituation);
+        }
+        return r;
+    }
+
+    @RequestMapping(value = "/get_situationConfig")
+    @ResponseBody
+    public List<ModuleSituation> get_situationConfig(String moduleUnid) {
+        List<ModuleSituation> moduleSituations = sMconfigService.getAllModuleSituationByModuleUnid(moduleUnid);
+        return moduleSituations;
+    }
+
+    @RequestMapping(value = "/delete_situationConfig")
+    @ResponseBody
+    @Transactional
+    public int delete_situationConfig(String unid) {
+        int r = sMconfigService.deleteModuleSituation(unid);
+        return r;
+    }
+
+    @RequestMapping(value = "/get_moduleServicesMaterials")
+    @ResponseBody
+    public Map get_moduleServicesMaterials(String moduleUnid) {
+        Map map = new HashMap();
+        //统一材料
+        List<ModuleMaterial> moduleMaterials = sMconfigService.getModuleMaterialByModuleUnid(moduleUnid);
+        //模型-事项
+        List<ModuleService> moduleServices = sMconfigService.getApasServiceByModuleUnid(moduleUnid);
+        List<ApasMaterial> li = new ArrayList<ApasMaterial>();
+        //统一后材料
+        List<ApasMaterial> _li = null;
+        for (ModuleService moduleService : moduleServices) {
+            _li = sMconfigService.getApasMaterialByServiceIdUnin(moduleService.getServiceid(), moduleMaterials);
+            moduleService.setApasMaterialListUnin(_li);
+            li.addAll(_li);
+        }
+        map.put("moduleServices", moduleServices);
+        map.put("moduleMaterials", li);
+        return map;
+
+    }
+
 }

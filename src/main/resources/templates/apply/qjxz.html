@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>情景选择</title>
+    <link rel="stylesheet" href="css/qjxz.css">
+    <link rel="stylesheet" href="components/layui/css/layui.css">
+    <script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="components/layui/layui.js"></script>
+</head>
+<body>
+<div class="container">
+    <div id="top"></div>
+    <script>
+        $("#top").load("top");
+    </script>
+    <div class="yindao">
+        <ul>
+            <li>
+                <image src="image/apply/qinxing.png"></image>
+                <p>1、情景选择</p>
+            </li>
+            <li>
+                <image src="image/apply/qianjiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/qianqingdan.png"></image>
+                <p>2、申报清单</p>
+            </li>
+            <li>
+                <image src="image/apply/qianjiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/qianyibiao.png"></image>
+                <p>3、一表填写</p>
+            </li>
+            <li>
+                <image src="image/apply/qianjiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/cailiao.png"></image>
+                <p>4、材料上传</p>
+            </li>
+            <li>
+                <image src="image/apply/qianjiantou.png"></image>
+            </li>
+            <li>
+                <image src="image/apply/gaozhi.png"></image>
+                <p>5、申报告知</p>
+            </li>
+        </ul>
+    </div>
+    <div class="shenbaoqingdan">
+        <div class="yuanjiaotoubu">
+            <p style="margin-left: 66px;margin-top: 32px;">
+                <span th:text="${session.apasUniteModule.moduleName}"
+                      style="font-size: 22px;font-weight: bold;color: #ffffff;"></span>
+                <span style="font-size: 20px;color: #ffffff;">-情景选择</span>
+            </p>
+        </div>
+        <div class="liebiao">
+            <ul>
+                <li th:each="moduleSituation,memberStat:${moduleSituations}">
+                    <p th:text="${memberStat.index + 1} + '、' + ${moduleSituation.question}"></p>
+                    <div class="tradio" th:id="${moduleSituation.unid}">
+                        <label class="radio-inline"><input type="radio"
+                                                           th:attr="data-anw='是',name=${moduleSituation.unid},data-sid=${moduleSituation.answer1Sids},data-mid=${moduleSituation.answer1Mids}">是</label>
+                        <label class="radio-inline"><input type="radio"
+                                                           th:attr="data-anw='否',name=${moduleSituation.unid},data-sid=${moduleSituation.answer2Sids},data-mid=${moduleSituation.answer2Mids}">否</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <form acrion="sbqd"></form>
+        <div class="nextstep">
+            <div class="btngroup" onclick="goto('sbqd')">下一步</div>
+        </div>
+    </div>
+</div>
+<input id="modulePic" th:value="${session.apasUniteModule.modulePic}">
+</body>
+<script>
+    $(function(){
+        var modulePic = $("#modulePic").val();
+        if(!!modulePic){
+            layui.use(['layer'], function () {
+                var layer = layui.layer;
+                layer.open({
+                    type: 2,
+                    title: '办事指南',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['500px', '500px'],
+                    content: 'guide?guideFlow='+modulePic
+                });
+            });
+        }
+
+    });
+
+    function goto(step) {
+        var arr_situation = [];
+        var arr_services = [];
+        var arr_materials = [];
+        var obj;
+        $(".tradio").each(function () {
+            obj = new Object();
+            var _question = $(this).prev("p").text();
+            var _obj = $(this).find("input[type='radio']:checked");
+            var _answer = $(_obj).attr("data-anw");
+            obj.question = _question;
+            obj.answer = _answer;
+            arr_situation.push(obj);//情景选择结果
+            arr_services.push($(_obj).attr("data-sid"));//选中答案关联事项
+            arr_materials.push($(_obj).attr("data-mid"))//选中答案关联材料
+        });
+
+        var _arr_services = removeDuplicates(arr_services.join(",").split(",")).join(",");
+        var _arr_materials = removeDuplicates(arr_materials.join(",").split(",")).join(",");
+        var param = JSON.stringify({
+            arr_situation: arr_situation,
+            arr_services: _arr_services,
+            arr_materials: _arr_materials
+        });
+        location.href = step + "?data=" + encodeURI(param);
+
+    }
+
+    /**
+     * 数据去重
+     * @param arr
+     * @returns {[]}
+     */
+    function removeDuplicates(arr){
+        var i, len=arr.length;
+        var array=[], obj={};
+        for(i=0; i<len; i++){
+            if(!obj.hasOwnProperty(arr[i])){
+                array.push(arr[i]);
+                obj[arr[i]] = true;
+            }
+        }
+        return array;
+    }
+</script>
+</html>

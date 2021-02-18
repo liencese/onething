@@ -21,7 +21,9 @@ public class ModuleService {
     private String type;
     private String alt;
 
-    private List<ApasMaterial> apasMaterialList;
+    private List<ApasMaterial> apasMaterialList;//原材料
+
+    private List<ApasMaterial> apasMaterialListUnin;//统一后材料
 
     public List<ApasMaterial> getApasMaterialList() {
         return apasMaterialList;
@@ -29,6 +31,14 @@ public class ModuleService {
 
     public void setApasMaterialList(List<ApasMaterial> apasMaterialList) {
         this.apasMaterialList = apasMaterialList;
+    }
+
+    public List<ApasMaterial> getApasMaterialListUnin() {
+        return apasMaterialListUnin;
+    }
+
+    public void setApasMaterialListUnin(List<ApasMaterial> apasMaterialListUnin) {
+        this.apasMaterialListUnin = apasMaterialListUnin;
     }
 
     public int getId() {

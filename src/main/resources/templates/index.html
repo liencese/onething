@@ -7,10 +7,17 @@
     <link rel="stylesheet" href="components/layui/css/layui.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="components/font-awesome-4.7.0/css/font-awesome.css">
+    <script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="components/jquery/jquery.ajax.js"></script>
+    <script type="text/javascript" src="components/layui/layui.js"></script>
 </head>
 <body>
-<div class="main">
-    <div class="top"></div>
+<div class="container">
+    <!--<div class="top"></div>-->
+    <div id="top"></div>
+    <script>
+        $("#top").load("top");
+    </script>
     <div class="center">
         <ul class="tab tab-large">
             <li class="msfw active" ><a href="javascript:switchType('msfw')" style="display: block;">民生服务</a></li>
@@ -24,7 +31,7 @@
                         <div class="select-tab-collapse-wrapper">
                             <ul class="select-tab span4tab filter-ul">
                                 <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '民生服务' && apasUniteModule.moduleClassTag eq '就业安置'}">
-                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                    <a th:href="@{'qjxz?moduleUnid='+${apasUniteModule.unid}}" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -34,7 +41,7 @@
                         <div class="select-tab-collapse-wrapper">
                             <ul class="select-tab span4tab filter-ul">
                                 <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '民生服务' && apasUniteModule.moduleClassTag eq '社会服务'}">
-                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                    <a th:href="@{'qjxz?moduleUnid='+${apasUniteModule.unid}}" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -44,7 +51,7 @@
                         <div class="select-tab-collapse-wrapper">
                             <ul class="select-tab span4tab filter-ul">
                                 <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '民生服务' && apasUniteModule.moduleClassTag eq '婚姻生育'}">
-                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                    <a th:href="@{'qjxz?moduleUnid='+${apasUniteModule.unid}}" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -59,7 +66,7 @@
                         <div class="select-tab-collapse-wrapper">
                             <ul class="select-tab span4tab filter-ul">
                                 <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '休闲娱乐业'}">
-                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                    <a th:href="@{'qjxz?moduleUnid='+${apasUniteModule.unid}}" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -69,7 +76,7 @@
                         <div class="select-tab-collapse-wrapper">
                             <ul class="select-tab span4tab filter-ul">
                                 <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '教育医疗'}">
-                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                    <a th:href="@{'qjxz?moduleUnid='+${apasUniteModule.unid}}" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -79,7 +86,7 @@
                         <div class="select-tab-collapse-wrapper">
                             <ul class="select-tab span4tab filter-ul">
                                 <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '生产制造业'}">
-                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                    <a th:href="@{'qjxz?moduleUnid='+${apasUniteModule.unid}}" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -89,7 +96,7 @@
                         <div class="select-tab-collapse-wrapper">
                             <ul class="select-tab span4tab filter-ul">
                                 <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '社会服务'}">
-                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                    <a th:href="@{'qjxz?moduleUnid='+${apasUniteModule.unid}}" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -99,7 +106,7 @@
                         <div class="select-tab-collapse-wrapper">
                             <ul class="select-tab span4tab filter-ul">
                                 <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '酒店餐饮业'}">
-                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                    <a th:href="@{'qjxz?moduleUnid='+${apasUniteModule.unid}}" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -109,7 +116,7 @@
                         <div class="select-tab-collapse-wrapper">
                             <ul class="select-tab span4tab filter-ul">
                                 <li class="filter-tab" th:each="apasUniteModule,iterStat:${apasUniteModuleList}" th:if="${apasUniteModule.moduleType eq '商事登记' && apasUniteModule.moduleClassTag eq '其他'}">
-                                    <a href="javascript:;" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
+                                    <a th:href="@{'qjxz?moduleUnid='+${apasUniteModule.unid}}" th:attr="title=${apasUniteModule.moduleName}" th:text="${apasUniteModule.moduleName}"></a>
                                 </li>
                             </ul>
                         </div>
@@ -120,9 +127,6 @@
     </div>
 </div>
 </body>
-<script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="components/jquery/jquery.ajax.js"></script>
-<script type="text/javascript" src="components/layui/layui.js"></script>
 <script>
     function switchType(type){
         $('.tabs-panel').removeClass('active');
