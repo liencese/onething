@@ -7,6 +7,37 @@
     <link rel="stylesheet" href="components/layui/css/layui.css">
     <script type="text/javascript" src="components/jquery/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="components/layui/layui.js"></script>
+    <style>
+        .my-radio {
+            position: relative;
+            opacity: 0;
+        }
+
+        .radio-label {
+            cursor: pointer;
+            display: inline-block;
+            border: 1px solid #dcdfe6;
+            border-radius: 5px;
+            white-space: nowrap;
+            background:#fff;
+            color:#a3a3a3;
+            width: 80px;
+            height: 30px;
+            line-height:30px;
+            left: 0;
+            top: 0;
+            text-align:center;
+        }
+        .my-radio:checked + .radio-label {
+            background-color: #b66460;
+            color:white;
+        }
+        .my-p{
+            height: 30px;
+            line-height: 40px;
+        }
+
+    </style>
 </head>
 <body>
 <div class="container">
@@ -61,12 +92,19 @@
         <div class="liebiao">
             <ul>
                 <li th:each="moduleSituation,memberStat:${moduleSituations}">
-                    <p th:text="${memberStat.index + 1} + '、' + ${moduleSituation.question}"></p>
+                    <p class="my-p" th:text="${memberStat.index + 1} + '、' + ${moduleSituation.question}"></p>
                     <div class="tradio" th:id="${moduleSituation.unid}">
-                        <label class="radio-inline"><input type="radio"
+
+                        <input type="radio" class="my-radio" th:attr="id=${moduleSituation.unid}+'Y',data-anw='是',name=${moduleSituation.unid},data-sid=${moduleSituation.answer1Sids},data-mid=${moduleSituation.answer1Mids}">
+                        <label class="radio-label" th:attr="for=${moduleSituation.unid}+'Y'">是</label>
+
+                        <input type="radio" class="my-radio" th:attr="id=${moduleSituation.unid}+'N',data-anw='否',name=${moduleSituation.unid},data-sid=${moduleSituation.answer2Sids},data-mid=${moduleSituation.answer2Mids}">
+                        <label class="radio-label" th:attr="for=${moduleSituation.unid}+'N'">否</label>
+
+                        <!--<label class="radio-inline"><input type="radio"
                                                            th:attr="data-anw='是',name=${moduleSituation.unid},data-sid=${moduleSituation.answer1Sids},data-mid=${moduleSituation.answer1Mids}">是</label>
                         <label class="radio-inline"><input type="radio"
-                                                           th:attr="data-anw='否',name=${moduleSituation.unid},data-sid=${moduleSituation.answer2Sids},data-mid=${moduleSituation.answer2Mids}">否</label>
+                                                           th:attr="data-anw='否',name=${moduleSituation.unid},data-sid=${moduleSituation.answer2Sids},data-mid=${moduleSituation.answer2Mids}">否</label>-->
                     </div>
                 </li>
             </ul>
