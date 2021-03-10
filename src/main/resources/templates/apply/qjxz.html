@@ -36,7 +36,11 @@
             height: 30px;
             line-height: 40px;
         }
-
+        .p-tip{
+            margin-left: 20px;
+            color: red;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -101,6 +105,7 @@
                         <input type="radio" class="my-radio" th:attr="id=${moduleSituation.unid}+'N',data-anw='否',name=${moduleSituation.unid},data-sid=${moduleSituation.answer2Sids},data-mid=${moduleSituation.answer2Mids}">
                         <label class="radio-label" th:attr="for=${moduleSituation.unid}+'N'">否</label>
 
+                        <p class="p-tip" th:text="'请选择' + ${moduleSituation.question}"></p>
                         <!--<label class="radio-inline"><input type="radio"
                                                            th:attr="data-anw='是',name=${moduleSituation.unid},data-sid=${moduleSituation.answer1Sids},data-mid=${moduleSituation.answer1Mids}">是</label>
                         <label class="radio-inline"><input type="radio"
@@ -141,10 +146,17 @@
         var arr_services = [];
         var arr_materials = [];
         var obj;
+        var flag = true;
         $(".tradio").each(function () {
             obj = new Object();
             var _question = $(this).prev("p").text();
             var _obj = $(this).find("input[type='radio']:checked");
+            if(_obj == null || _obj == undefined || _obj.length == 0){
+                $(this).find(".p-tip").show();
+                flag = false;
+            }else{
+                $(this).find(".p-tip").hide();
+            }
             var _answer = $(_obj).attr("data-anw");
             obj.question = _question;
             obj.answer = _answer;
@@ -153,14 +165,17 @@
             arr_materials.push($(_obj).attr("data-mid"))//选中答案关联材料
         });
 
-        var _arr_services = removeDuplicates(arr_services.join(",").split(",")).join(",");
-        var _arr_materials = removeDuplicates(arr_materials.join(",").split(",")).join(",");
-        var param = JSON.stringify({
-            arr_situation: arr_situation,
-            arr_services: _arr_services,
-            arr_materials: _arr_materials
-        });
-        location.href = step + "?data=" + encodeURI(param);
+        if(flag){
+            var _arr_services = removeDuplicates(arr_services.join(",").split(",")).join(",");
+            var _arr_materials = removeDuplicates(arr_materials.join(",").split(",")).join(",");
+            var param = JSON.stringify({
+                arr_situation: arr_situation,
+                arr_services: _arr_services,
+                arr_materials: _arr_materials
+            });
+            location.href = step + "?data=" + encodeURI(param);
+        }
+
 
     }
 
